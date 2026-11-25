@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Marketing &amp; Sales English</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout concept: Commercial Growth & Revenue Desk.
+   Warm slate-offwhite blueprint grid, sticky HUD with Rank/XP/Streak,
+   4-step progressive vocabulary warm-up, and 12 commercial deal & campaign cases. */
+:root{
+ --bg:#F2F4F7;--dot:rgba(30,77,107,.16);--panel:#FFFFFF;--panel2:#EBF0F4;--ink:#15222C;--muted:#4F606E;--line:#C8D3DC;
+ --steel:#1E4D6B;--steel-soft:#DCE9F2;--head-bg:#173E57;--head-ink:#FFFFFF;
+ --accent:#D4481C;--accent-soft:#FDE6DE;--on-accent:#FFFFFF;
+ --good:#1B7A3D;--good-soft:#DDF3E4;--bad:#B42318;--bad-soft:#FCE2DF;--star:#F0A81B;
+ --f-display:'Barlow Condensed','Arial Narrow',sans-serif;--f-body:'Atkinson Hyperlegible',system-ui,sans-serif;--f-mono:'IBM Plex Mono',ui-monospace,monospace;
+ color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#10171D;--dot:rgba(123,182,218,.13);--panel:#18232C;--panel2:#212E39;--ink:#E9F0F5;--muted:#9BAEB9;--line:#334452;
+ --steel:#7BB6DA;--steel-soft:#1F3646;--head-bg:#224359;--head-ink:#E9F0F5;
+ --accent:#FF845C;--accent-soft:#3E2218;--on-accent:#1C0B05;
+ --good:#5FD08A;--good-soft:#17382A;--bad:#FF8A80;--bad-soft:#3E1E1C;--star:#F5B83A;
+ color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+ --bg:#10171D;--dot:rgba(123,182,218,.13);--panel:#18232C;--panel2:#212E39;--ink:#E9F0F5;--muted:#9BAEB9;--line:#334452;
+ --steel:#7BB6DA;--steel-soft:#1F3646;--head-bg:#224359;--head-ink:#E9F0F5;
+ --accent:#FF845C;--accent-soft:#3E2218;--on-accent:#1C0B05;
+ --good:#5FD08A;--good-soft:#17382A;--bad:#FF8A80;--bad-soft:#3E1E1C;--star:#F5B83A;
+ color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+ margin:0;
+ padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+ background-color:var(--bg);
+ background-image:radial-gradient(var(--dot) 1.4px,transparent 1.7px);
+ background-size:22px 22px;
+ color:var(--ink);
+ font:17px/1.5 var(--f-body);
+ overflow-x:hidden;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.inner{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.02em;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:2.3rem}h2{font-size:1.7rem}h3{font-size:1.3rem}
+p{margin:0}
+button{font-family:inherit;color:inherit}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+
+/* Sticky Top HUD */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--panel);border-bottom:1px solid var(--line)}
+.topbar .inner{padding-block:8px}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font:700 1.35rem var(--f-display);text-transform:uppercase;letter-spacing:.03em;color:var(--steel)}
+.hud{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip-h{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);font-weight:700;font-size:14px;white-space:nowrap}
+.chip-h svg{color:var(--accent)}
+.xprow{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:13px;color:var(--muted)}
+.xpbar{flex:1;height:7px;border-radius:9px;background:var(--panel2);border:1px solid var(--line);overflow:hidden}
+.xpfill{height:100%;width:0;background:var(--accent);transition:width .5s}
+
+/* Main Tabs & Panels */
+.main{padding-block:20px 90px}
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tab{flex:1;min-width:0;padding:10px 6px;border:2px solid var(--line);border-radius:12px;background:var(--panel);font:700 1.05rem var(--f-display);text-transform:uppercase;letter-spacing:.03em;cursor:pointer;transition:background-color .15s,border-color .15s}
+.tab.on{background:var(--steel);border-color:var(--steel);color:var(--panel)}
+.tab small{font:500 11px var(--f-mono);display:block;opacity:.85}
+.intro{margin-bottom:14px;display:grid;gap:6px}
+.intro p{color:var(--muted)}
+.subnav{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.sub{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:2px solid var(--line);background:var(--panel);font-weight:700;font-size:14px;cursor:pointer}
+.sub.on{border-color:var(--accent);background:var(--accent-soft)}
+.subn{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--steel-soft);color:var(--steel);font:700 12px var(--f-mono)}
+.sub.done .subn{background:var(--good);color:var(--panel)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 20px -14px rgba(21,34,44,.45);display:grid;gap:14px}
+.lead{color:var(--muted)}
+.btn{font:700 16px/1 var(--f-body);padding:13px 18px;min-height:46px;border-radius:10px;border:2px solid var(--ink);background:var(--panel);cursor:pointer;transition:transform .1s,opacity .15s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.small{padding:8px 12px;min-height:36px;font-size:14px}
+.btn.ghost{border-color:var(--line);color:var(--muted)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--steel);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.ico{display:block}
+
+/* Word Wall */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,205px),1fr));gap:10px;align-items:start}
+.wcard{border:2px solid var(--line);border-radius:14px;background:var(--panel2);min-width:0;transition:border-color .15s}
+.wcard.open{grid-column:1/-1;background:var(--panel);border-color:var(--steel)}
+.wcard.verb.open{border-color:var(--accent)}
+.whead{width:100%;display:flex;align-items:center;gap:10px;padding:10px;background:none;border:0;cursor:pointer;text-align:left;color:var(--steel)}
+.wcard.verb .whead{color:var(--accent)}
+.wword{font:700 1.2rem var(--f-display);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);overflow-wrap:break-word;word-break:normal;hyphens:none;min-width:0;line-height:1.15}
+.whead svg,.whead .vtag{flex:none}
+.vtag{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;border:2px dashed currentColor;font:500 11px var(--f-mono);text-transform:uppercase}
+.seen-dot{margin-left:auto;width:10px;height:10px;border-radius:50%;background:var(--line);flex:none}
+.wcard.seen .seen-dot{background:var(--good)}
+.wbody{padding:0 12px 12px;display:grid;gap:8px}
+.wex{font-style:italic;color:var(--muted)}
+
+/* Match */
+.mgrid{display:grid;grid-template-columns:1fr 1.5fr;gap:10px}
+.mcol{display:grid;gap:8px;align-content:start;min-width:0}
+.mitem,.mdef{text-align:left;padding:11px 12px;border:2px solid var(--line);border-radius:12px;background:var(--panel2);cursor:pointer;font-size:15.5px;min-width:0;overflow-wrap:break-word;hyphens:none}
+.mitem{font-weight:700}
+.mitem.sel{border-color:var(--accent);background:var(--accent-soft)}
+.mitem.ok,.mdef.ok{border-color:var(--good);background:var(--good-soft);cursor:default}
+
+/* Gap Fill */
+.bank{display:flex;gap:8px;flex-wrap:wrap;padding:12px;border-radius:12px;background:var(--panel2);border:1px dashed var(--line)}
+.chip{padding:8px 14px;border-radius:999px;border:2px solid var(--steel);background:var(--panel);font-weight:700;cursor:pointer}
+.chip.sel{background:var(--steel);color:var(--panel)}
+.chip.used{opacity:.3;cursor:default}
+.sents{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.sent{line-height:2.3}
+.gap{min-width:104px;padding:3px 10px;margin:0 3px;border-radius:8px;border:2px dashed var(--steel);background:var(--steel-soft);font-weight:700;cursor:pointer;min-height:34px}
+.gap.filled{border-style:solid}.gap.active{border-color:var(--accent);background:var(--accent-soft)}
+.gap.ok{border-color:var(--good);background:var(--good-soft);cursor:default}
+.gap.bad,.oslot.bad{border-color:var(--bad);background:var(--bad-soft)}
+.msg{font-weight:700;color:var(--muted)}
+
+/* Spell */
+.clue{display:flex;gap:14px;align-items:center;padding:14px;border-radius:12px;background:var(--panel2);color:var(--steel)}
+.clue p{color:var(--ink)}
+.slots,.tiles{display:flex;gap:6px;flex-wrap:wrap}
+.slotgrp{display:flex;gap:4px;flex-wrap:wrap;margin-right:14px;margin-bottom:4px}
+.slot,.tile{width:40px;height:46px;border-radius:9px;border:2px solid var(--steel);background:var(--panel);font:700 1.4rem var(--f-display);text-transform:uppercase;cursor:pointer;padding:0}
+.slot{background:var(--panel2);border-style:dashed}.slot.f{border-style:solid;background:var(--panel)}
+.slot.lock{border-color:var(--accent);cursor:default}.slot.bad{border-color:var(--bad);background:var(--bad-soft)}
+.slot.ok{border-color:var(--good);background:var(--good-soft)}
+.tile.used{opacity:.2;cursor:default}
+
+/* Sales & Marketing Cases */
+.rail{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;margin-bottom:14px}
+.rn{height:34px;border-radius:8px;border:2px solid var(--line);background:var(--panel);font:700 13px var(--f-mono);cursor:pointer;padding:0}
+.rn.done{background:var(--steel);border-color:var(--steel);color:var(--panel)}
+.rn.cur{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.stack{display:grid;gap:14px}
+.job{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 20px -14px rgba(21,34,44,.45)}
+.jobhead{display:flex;justify-content:space-between;padding:8px 16px;background:var(--head-bg);color:var(--head-ink)}
+.jobbody{padding:16px;display:grid;gap:12px;border-bottom:2px dashed var(--line)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:0}
+.fields dt{font:500 11px var(--f-mono);text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
+.fields dd{margin:0;font-weight:700}
+.pri{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;background:var(--steel-soft);color:var(--steel)}
+.pri-urgent{background:var(--accent-soft);color:var(--accent)}
+.pri-margin-risk{background:var(--bad-soft);color:var(--bad)}
+.pri-growth{background:var(--good-soft);color:var(--good)}
+.quote{margin:0;padding:10px 14px;border-radius:12px;background:var(--panel2);font-style:italic}
+.quote::before{content:"“";font:700 2rem/0 var(--f-display);color:var(--accent);margin-right:4px;vertical-align:-8px}
+.think{padding:12px 16px;display:flex;gap:10px;align-items:baseline;background:var(--accent-soft);border-radius:0 0 14px 14px}
+.think b{font:500 12px var(--f-mono);text-transform:uppercase;color:var(--accent);letter-spacing:.08em;white-space:nowrap}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:12px}
+.stepn{display:block;font:500 12px var(--f-mono);color:var(--accent);letter-spacing:.08em}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;background:var(--panel);border:2px solid var(--line);border-radius:14px;cursor:pointer;text-align:center;color:var(--steel)}
+.opt b{color:var(--ink);font:700 1.1rem var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+.opt.good,.copt.good{border-color:var(--good);background:var(--good-soft)}
+.opt.bad,.copt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.why{font-size:14.5px;color:var(--ink);text-align:left;font-style:normal;display:block;margin-top:4px}
+.copt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--panel);cursor:pointer}
+.cl{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--steel-soft);color:var(--steel);font:700 13px var(--f-mono)}
+.ct{min-width:0}
+.hint{padding:10px 14px;border-radius:10px;background:var(--steel-soft);font-size:15px}
+.olist{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.oslot,.ostep{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:11px 12px;border-radius:12px;border:2px dashed var(--line);background:var(--panel2);cursor:pointer;color:var(--muted)}
+.oslot.filled{border-style:solid;border-color:var(--steel);background:var(--panel);color:var(--ink)}
+.oslot.ok{border-color:var(--good);background:var(--good-soft);color:var(--ink);cursor:default}
+.onum{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--steel);color:var(--panel);font:700 13px var(--f-mono)}
+.ostep{border:2px solid var(--steel);border-style:solid;background:var(--panel);color:var(--ink)}
+.pool{display:grid;gap:8px}
+.explain{padding:12px 14px;border-radius:12px;background:var(--good-soft);border:1px solid var(--good)}
+.debrief{background:var(--panel);border:2px solid var(--good);border-radius:16px;padding:18px;display:grid;gap:12px}
+.stars{display:flex;gap:4px}.stars svg{width:30px;height:30px}
+.star{fill:none;stroke:var(--line);stroke-width:2}.star.on{fill:var(--star);stroke:var(--ink);animation:pop .5s both}
+.say{padding:12px 14px;border-radius:12px;background:var(--steel-soft);display:grid;gap:8px}
+.discuss{padding:12px 14px;border-radius:12px;background:var(--accent-soft);border:1px dashed var(--accent);display:grid;gap:4px}
+.discuss b{font:500 12px var(--f-mono);text-transform:uppercase;color:var(--accent);letter-spacing:.08em}
+
+/* Results */
+.rank{text-align:center;display:grid;gap:8px;padding:10px 0}
+.rank h2{font-size:2.6rem;color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{padding:12px;border-radius:12px;background:var(--panel2);text-align:center}
+.stat b{display:block;font:700 1.8rem var(--f-display)}
+.pegs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.peg{display:grid;justify-items:center;gap:4px;padding:10px 6px;border-radius:12px;border:2px dashed var(--line);color:var(--muted);font-size:12px;text-align:center}
+.peg.on{border:2px solid var(--steel);color:var(--steel);background:var(--panel)}
+.peg .stars svg{width:14px;height:14px}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.badge{padding:12px;border-radius:12px;border:2px dashed var(--line);color:var(--muted);display:grid;gap:2px}
+.badge b{font:700 1.1rem var(--f-display);text-transform:uppercase}
+.badge.on{border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink)}
+.badge.on b{color:var(--accent)}
+.talk{margin:0;padding-left:20px;display:grid;gap:10px}
+
+/* Toasts & Animations */
+#toasts{position:fixed;left:0;right:0;bottom:max(14px,env(safe-area-inset-bottom,0px));display:grid;gap:6px;justify-items:center;pointer-events:none;z-index:20}
+.toast{padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:700;animation:rise .3s both}
+.toast.level{background:var(--accent);color:var(--on-accent)}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:440px){
+ h1{font-size:1.9rem}
+ .mgrid{grid-template-columns:1fr 1.35fr}
+ .slot,.tile{width:32px;height:40px;font-size:1.2rem}
+ .rail{grid-template-columns:repeat(6,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="inner">
+ <div class="toprow">
+  <div class="brand">
+   <svg width="28" height="28" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M6 36l12-12 8 8 16-16"/>
+    <path d="M32 16h10v10"/>
+    <circle cx="6" cy="36" r="3" fill="currentColor"/>
+    <circle cx="18" cy="24" r="3" fill="currentColor"/>
+    <circle cx="26" cy="32" r="3" fill="currentColor"/>
+   </svg>
+   Marketing &amp; Sales English
+  </div>
+  <div class="hud" aria-label="Your progress">
+   <span class="chip-h" id="hud-level">Marketing Trainee</span>
+   <span class="chip-h"><span id="hud-xp">0</span> XP</span>
+   <span class="chip-h" title="Current streak"><svg width="16" height="16" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 4c2 8 12 12 12 24a12 12 0 0 1-24 0c0-6 4-8 5-13 3 2 4 5 4 7 4-4 4-12 3-18z"/></svg><span id="hud-streak">0</span></span>
+  </div>
+ </div>
+ <div class="xprow"><div class="xpbar"><div class="xpfill" id="xpfill"></div></div><span id="xpnext"></span></div>
+</div></header>
+
+<main class="main"><div class="inner">
+ <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+ <div id="app"></div>
+</div></main>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- Utility Helpers ---------- */
+var $=function(s,el){return (el||document).querySelector(s)};
+var $$=function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s))};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var SPEAK='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function speak(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+
+/* ---------- 48x48 Bespoke Geometric Commercial SVG Icons ---------- */
+function icon(k,s){s=s||44;return '<svg class="ico" width="'+s+'" height="'+s+'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'}
+var CHECK='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>';
+function starsHTML(n){var o='';for(var i=0;i<3;i++)o+='<svg viewBox="0 0 48 48" aria-hidden="true"><polygon class="star '+(i<n?'on':'')+'" points="24,4 30,18 45,19 33,29 37,44 24,36 11,44 15,29 3,19 18,18"/></svg>';return '<div class="stars" role="img" aria-label="'+n+' of 3 stars">'+o+'</div>'}
+
+var IC={
+ audience:'<circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="9"/><circle cx="24" cy="24" r="2.5" fill="currentColor"/><path d="M24 4v5M24 39v5M4 24h5M39 24h5"/>',
+ value:'<path d="M14 8h20l8 11-18 22L6 19z"/><path d="M6 19h36M14 8l10 11 10-11M24 19v22"/>',
+ funnel:'<path d="M6 9h36l-13 15v11l-10 5V24z"/><path d="M14 16h20"/>',
+ lead:'<circle cx="19" cy="16" r="6"/><path d="M8 38c0-6.5 5-11 11-11s11 4.5 11 11"/><circle cx="36" cy="25" r="7" fill="var(--panel)"/><path d="M33 25l2 2 4-4"/>',
+ conversion:'<rect x="6" y="12" width="14" height="24" rx="2"/><rect x="28" y="12" width="14" height="24" rx="2"/><path d="M20 24h8M25 20l4 4-4 4"/><path d="M13 20v8M35 19v10"/>',
+ pain:'<path d="M26 5L12 26h11l-2 17 15-21H25z"/><circle cx="37" cy="11" r="4" stroke-dasharray="2 2"/>',
+ outreach:'<rect x="5" y="11" width="32" height="22" rx="2.5"/><path d="M5 13l16 11 16-11"/><circle cx="36" cy="32" r="7" fill="var(--panel)"/><path d="M33 32h6M36 29l3 3-3 3"/>',
+ objection:'<path d="M24 6l15 6v11c0 10-6.5 16.5-15 19-8.5-2.5-15-9-15-19V12z"/><path d="M24 17v8M24 30h.01"/>',
+ roi:'<path d="M6 40h36"/><rect x="10" y="27" width="6" height="13" rx="1"/><rect x="21" y="20" width="6" height="20" rx="1"/><rect x="32" y="11" width="6" height="29" rx="1"/><path d="M10 19l11-7 13-5M29 6h6v6"/>',
+ churn:'<path d="M14 10h16a8 8 0 0 1 8 8v12a8 8 0 0 1-8 8H14"/><path d="M19 33l-5 5 5 5"/><path d="M22 20l8 8M30 20l-8 8"/>'
+};
+
+/* ---------- 20 B1–B2 Marketing & Sales Vocabulary Items ---------- */
+var V=[
+ {w:'target audience',t:'tool',k:'audience',d:'The specific group of customers most likely to buy your product or service.',e:'Narrowing our target audience to mid-sized hotels doubled our email reply rate.'},
+ {w:'value proposition',t:'tool',k:'value',d:'A clear statement explaining why a customer should choose your product over competitors.',e:'Our value proposition focuses on saving hospitality teams five hours of admin every week.'},
+ {w:'sales funnel',t:'tool',k:'funnel',d:'The journey potential customers take from first discovering a brand to signing a contract.',e:'Many prospects enter the top of our sales funnel through webinars, then book a demo.'},
+ {w:'qualified lead',t:'tool',k:'lead',d:'A prospective customer who matches your ideal profile and has genuine need, authority, and budget.',e:'Marketing passes every qualified lead to the sales team within two hours.'},
+ {w:'conversion rate',t:'tool',k:'conversion',d:'The percentage of visitors or leads who complete a desired action, such as booking a call or buying.',e:'Simplifying the demo request form raised our landing-page conversion rate from 2% to 4.5%.'},
+ {w:'pain point',t:'tool',k:'pain',d:'A specific operational problem, cost, or frustration that a customer wants to solve.',e:'Ask discovery questions early to uncover the client’s biggest pain point.'},
+ {w:'cold outreach',t:'tool',k:'outreach',d:'Contacting potential clients for the first time via email, phone, or LinkedIn without a prior introduction.',e:'Short, personalized cold outreach gets far more replies than long generic templates.'},
+ {w:'objection',t:'tool',k:'objection',d:'A concern or hesitation a buyer raises about price, timing, risk, or switching providers.',e:'When a buyer raises a price objection, explore the cost of doing nothing first.'},
+ {w:'campaign ROI',t:'tool',k:'roi',d:'Return on investment: the revenue generated by a marketing campaign compared to its total cost.',e:'The spring LinkedIn campaign delivered a 420% campaign ROI in ninety days.'},
+ {w:'churn rate',t:'tool',k:'churn',d:'The percentage of existing customers who cancel or stop buying over a given period.',e:'Better onboarding calls helped reduce our annual churn rate below 6%.'},
+ {w:'segment',t:'verb',d:'To divide a broad market into smaller groups with shared needs, company size, or buying habits.',e:'We segment our email list by industry and company size before launching a campaign.'},
+ {w:'position',t:'verb',d:'To shape how customers perceive your brand or product compared to competing alternatives.',e:'We position our platform as the easiest all-in-one tool for fast-growing teams.'},
+ {w:'generate',t:'verb',d:'To attract and capture new leads, demand, or pipeline opportunities through marketing.',e:'Our product comparison guide continues to generate forty inbound inquiries every month.'},
+ {w:'nurture',t:'verb',d:'To build trust with prospects over time using helpful insights and follow-ups until they are ready to buy.',e:'Automated case-study emails help nurture early-stage leads over a six-week cycle.'},
+ {w:'pitch',t:'verb',d:'To present your solution persuasively to a buyer, connecting features to clear business outcomes.',e:'Tailor every deck so you pitch measurable revenue gains rather than technical specs.'},
+ {w:'qualify',t:'verb',d:'To ask structured questions to check whether a prospect has real need, decision power, and budget.',e:'Sales reps qualify inbound requests during a fifteen-minute discovery call.'},
+ {w:'negotiate',t:'verb',d:'To discuss price, scope, and contract terms so both buyer and seller reach a mutually beneficial deal.',e:'When buyers ask for a discount, negotiate multi-year terms instead of cutting price.'},
+ {w:'upsell',t:'verb',d:'To encourage an existing customer to upgrade to a higher-tier plan or add valuable modules.',e:'Account managers review usage every quarter to upsell analytics add-ons to active clients.'},
+ {w:'close',t:'verb',d:'To gain final agreement from a buyer and get the contract signed.',e:'Confirming the implementation timeline early helped us close the enterprise deal on Friday.'},
+ {w:'retain',t:'verb',d:'To keep existing customers satisfied, active, and renewing year after year.',e:'Dedicated onboarding and quarterly reviews help us retain 94% of our annual subscribers.'}
+];
+var VI={};V.forEach(function(v,i){VI[v.w]=i});
+
+var ROUNDS=[[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19]];
+
+var FILL=[
+ {t:'Narrowing our ___ to mid-sized hotels doubled our email reply rate.',a:'target audience'},
+ {t:'Our ___ explains clearly why hospitality teams save five hours every week.',a:'value proposition'},
+ {t:'Marketing passes every ___ to the sales team within two hours.',a:'qualified lead'},
+ {t:'Short, personalized ___ gets far more replies than generic templates.',a:'cold outreach'},
+ {t:'The spring LinkedIn ads delivered a 420% ___ in ninety days.',a:'campaign ROI'},
+ {t:'We ___ our database by company size and industry before sending offers.',a:'segment'},
+ {t:'Case-study emails help ___ early-stage prospects until they are ready to buy.',a:'nurture'},
+ {t:'Sales reps ___ inbound requests during a short fifteen-minute discovery call.',a:'qualify'},
+ {t:'When buyers ask for a discount, ___ multi-year terms instead of cutting price.',a:'negotiate'},
+ {t:'Dedicated onboarding and quarterly check-ins help us ___ 94% of our clients.',a:'retain'}
+];
+
+var SPELL=['target audience','value proposition','sales funnel','qualified lead','pain point','cold outreach','objection','segment','negotiate','upsell'];
+
+var LEVELS=[
+ {n:'Marketing Trainee',at:0},
+ {n:'Growth Specialist',at:200},
+ {n:'Revenue Strategist',at:450},
+ {n:'VP of Marketing & Sales',at:700}
+];
+
+/* ---------- 12 Sales & Marketing Cases (#5041–#5052) ---------- */
+var SC=[
+ {title:'Thousands of Clicks, Zero Demos',car:'Paid Acquisition',cust:'Maya, Performance Marketer',pri:'Urgent',tool:'audience',
+  sit:'Your new paid search and social ads generated 4,500 website clicks this month, spending 80% of the quarterly ad budget. However, almost all form fills came from students and solo freelancers rather than mid-sized B2B companies.',
+  quote:'Our click-through rate looks fantastic, so why has the sales calendar stayed completely empty?',
+  think:'High traffic means nothing if the wrong people click. How do you stop paying for irrelevant visitors?',
+  q1:'Which core marketing concept did the campaign fail to define tightly?',
+  o:[
+   {k:'audience',ok:1,w:'Yes. Without a tightly defined target audience, ads attract low-intent visitors who will never buy.'},
+   {k:'churn',w:'No. Churn rate measures existing customers cancelling, whereas this is a top-of-funnel ad targeting issue.'},
+   {k:'objection',w:'No. An objection is a buyer hesitation during sales talks, not an ad targeting mistake.'},
+   {k:'outreach',w:'No. Cold outreach is direct outbound prospecting, whereas this problem occurred in paid ads.'}
+  ],
+  h1:'The specific group of buyers most likely to purchase.',
+  t2:'choice',q2:'What is your smartest next move?',
+  c:[
+   {t:'Pause broad keywords, segment ads by job title and company size, and rewrite ad copy to speak directly to mid-sized operations leaders.',ok:1,w:'Yes. Tighter segmentation and role-specific messaging filter out students and attract real decision-makers.'},
+   {t:'Double the daily ad budget immediately so more clicks eventually produce a few sales calls.',w:'No. Scaling an untargeted campaign simply wastes twice as much money on the wrong crowd.'},
+   {t:'Remove all qualifying fields from the landing page form so anyone can book a sales rep’s time.',w:'No. Letting unqualified visitors book demos frustrates sales reps and lowers close rates.'}
+  ],
+  h2:'Narrow the targeting and speak directly to decision-makers.',
+  model:'Our ads attracted the wrong target audience. Let’s segment by company size and job title so our budget reaches real decision-makers.',
+  discuss:'In your team: Is it better to get 500 cheap clicks from anyone, or 40 expensive clicks from your exact ideal buyers? Why?'},
+
+ {title:'Marketing Says 500 Leads, Sales Says Junk',car:'Sales-Marketing Alignment',cust:'Liam, Head of Sales',pri:'Alignment',tool:'lead',
+  sit:'Marketing celebrates hitting its monthly target of 500 e-book downloads. Meanwhile, the sales team complains that 90% of those contacts have no budget, no timeline, and stop answering calls.',
+  quote:'Marketing keeps sending us newsletter readers instead of real buyers ready for a conversation!',
+  think:'When marketing counts downloads and sales wants ready buyers, both teams are using different definitions.',
+  q1:'What shared standard must Marketing and Sales agree on first?',
+  o:[
+   {k:'lead',ok:1,w:'Yes. A shared definition of a qualified lead ensures marketing only passes prospects with real fit and buying intent.'},
+   {k:'churn',w:'No. Churn rate tracks existing customer cancellations, not new lead handoffs.'},
+   {k:'conversion',w:'No. Conversion rate is a percentage metric, not the shared profile of a sales-ready buyer.'},
+   {k:'pain',w:'No. Uncovering a pain point happens in discovery, whereas the handoff gap here is lead qualification.'}
+  ],
+  h1:'A prospect who matches your ideal profile with real need and budget.',
+  t2:'gap',q2:'Complete the alignment agreement. Tap a word, then tap a gap.',
+  gap:{
+   s:[
+    {t:'First, both teams ___ the database by company size, role, and industry fit.',a:['segment']},
+    {t:'Next, SDRs ___ prospects using agreed need, authority, and timeline rules.',a:['qualify']},
+    {t:'Early-stage downloaders stay in an automated track to ___ trust until they are ready.',a:['nurture']}
+   ],
+   b:['segment','qualify','nurture','upsell']
+  },
+  why2:'Segmenting by ideal profile, qualifying before handoff, and nurturing early readers stops friction between Marketing and Sales.',
+  h2:'Group by fit, check readiness, and keep early readers warm.',
+  model:'We need one shared definition of a qualified lead. Marketing will nurture early readers while sales focuses on qualified buyers.',
+  discuss:'In your group: Why do Marketing and Sales teams often blame each other for missed revenue targets? How can a weekly 15-minute sync fix this?'},
+
+ {title:'Your Competitor Is 25% Cheaper',car:'Objection Handling',cust:'Claire, Procurement Lead',pri:'Margin Risk',tool:'objection',
+  sit:'After a successful product demo with a 120-person logistics company, the procurement lead emails you saying a rival vendor offered a 25% lower annual price and asks you to match it immediately.',
+  quote:'We like your platform, but your competitor is 25% cheaper. Match their price and we sign today.',
+  think:'If you cut your price by 25% on the spot, you destroy your profit margin and signal that your original price was inflated.',
+  q1:'What type of buyer pushback are you facing here?',
+  o:[
+   {k:'objection',ok:1,w:'Yes. A price objection tests whether you can defend your value before making any commercial concession.'},
+   {k:'outreach',w:'No. Cold outreach is initial prospecting, whereas this buyer is already at the proposal stage.'},
+   {k:'funnel',w:'No. Sales funnel describes the overall buyer journey, not this specific price pushback.'},
+   {k:'audience',w:'No. Target audience refers to market segmentation, not a buyer’s price concern.'}
+  ],
+  h1:'A concern or hesitation raised by a buyer before signing.',
+  t2:'choice',q2:'How do you respond to protect your margin?',
+  c:[
+   {t:'Acknowledge the price gap calmly, ask which capabilities they would lose with the cheaper tool, and quantify the hours saved with your solution.',ok:1,w:'Yes. Exploring the hidden cost of a cheaper alternative shifts the conversation from price to total business value.'},
+   {t:'Immediately offer a 30% discount so the competitor cannot win the deal.',w:'No. Panic discounting crushes profit margins and weakens your credibility.'},
+   {t:'Criticize the competitor aggressively and tell the buyer they are making a terrible mistake.',w:'No. Attacking rivals sounds defensive; calm, evidence-based comparison is far more persuasive.'}
+  ],
+  h2:'Explore what is missing in the cheaper offer and quantify your value.',
+  model:'Before discussing price, let’s compare what is included. Our platform saves your team ten hours a week, which pays back the difference in two months.',
+  discuss:'In your team: When a client says "You are too expensive," what are two polite follow-up questions you can ask before ever mentioning a discount?'},
+
+ {title:'Talking Features Instead of Fixing Problems',car:'Discovery Call',cust:'Noah, Senior Account Executive',pri:'Urgent',tool:'pain',
+  sit:'A promising retail prospect joins a 30-minute intro call. Within two minutes, your junior sales rep shares their screen and clicks through 25 software features. Halfway through, the buyer says they have to leave early.',
+  quote:'Thanks for the tour, we will look at the brochure and get back to you next quarter.',
+  think:'Buyers do not buy a list of features—they buy relief from an expensive or frustrating business problem.',
+  q1:'What did the sales rep forget to uncover before showing the product?',
+  o:[
+   {k:'pain',ok:1,w:'Yes. Uncovering the buyer’s specific pain point lets you tailor the demo to what they actually care about.'},
+   {k:'roi',w:'No. Campaign ROI measures marketing return, whereas this call failed because buyer needs were never explored.'},
+   {k:'churn',w:'No. Churn rate tracks cancellations among existing customers.'},
+   {k:'outreach',w:'No. Cold outreach already worked—the buyer showed up to the call!' }
+  ],
+  h1:'The specific problem or frustration the customer needs to solve.',
+  t2:'order',q2:'Put the effective discovery call steps in the right order.',
+  steps:[
+   'Confirm the call agenda and ask what triggered their interest today.',
+   'Ask open questions to uncover their biggest operational pain point.',
+   'Quantify how much time or revenue that problem currently costs them.',
+   'Show only the two or three features that directly solve that problem.'
+  ],
+  why2:'Diagnose before you prescribe: understand the problem and its cost first, then show a focused solution.',
+  h2:'Set the agenda, diagnose the problem, measure its cost, then demo.',
+  model:'Before showing any features, I ask open questions to uncover the client’s main pain point and understand what that problem costs their business.',
+  discuss:'In your group: Why do salespeople love talking about product features, and why do buyers quickly tune out?'},
+
+ {title:'The Generic 10-Slide Intro Deck',car:'Positioning & Pitch',cust:'Elena, Product Marketing Lead',pri:'Alignment',tool:'value',
+  sit:'Your sales team uses a 10-slide company history presentation for every prospect, starting with your office locations and founding year. Prospects rarely understand how you differ from three similar competitors.',
+  quote:'By slide six, buyers still ask: "So what makes you actually different from the other vendors?"',
+  think:'Busy buyers want to know within 30 seconds who you help, what problem you solve, and why you beat alternatives.',
+  q1:'Which strategic messaging asset needs to be rewritten and sharpened?',
+  o:[
+   {k:'value',ok:1,w:'Yes. A clear value proposition explains the specific outcome you deliver and why buyers should choose you.'},
+   {k:'churn',w:'No. Churn rate tracks customer cancellations, not front-end sales messaging.'},
+   {k:'lead',w:'No. Qualified lead defines buyer fit, whereas this is about how you articulate your differentiation.'},
+   {k:'conversion',w:'No. Conversion rate is a performance metric, not your core positioning statement.'}
+  ],
+  h1:'A clear statement of why a buyer should choose you over rivals.',
+  t2:'choice',q2:'How should Marketing and Sales redesign the opening pitch?',
+  c:[
+   {t:'Replace company history slides with a 30-second value proposition focused on client outcomes, backed by one concrete customer proof point.',ok:1,w:'Yes. Leading with buyer outcomes and real proof captures attention immediately.'},
+   {t:'Add five more slides about your company awards and headquarters architecture.',w:'No. Self-centred company trivia bores prospects who care about solving their own challenges.'},
+   {t:'Copy your biggest competitor’s homepage headline word for word.',w:'No. Imitating rivals makes you look like a second-rate copy instead of a distinct leader.'}
+  ],
+  h2:'Lead with customer outcomes and real proof, not company history.',
+  model:'Let’s replace company history slides with a sharp value proposition that connects our solution directly to measurable client outcomes.',
+  discuss:'In your team: Can you explain your own company’s value proposition in two clear sentences without using buzzwords like "innovative" or "synergy"?'},
+
+ {title:'Cold Emails Deleted in Two Seconds',car:'Outbound Prospecting',cust:'Lucas, Business Development Rep',pri:'Growth',tool:'outreach',
+  sit:'Your outbound team sends 300 identical four-paragraph emails every week starting with "Dear Sir/Madam, we are a leading provider of..." The reply rate is 0.4%, and several prospects marked the emails as spam.',
+  quote:'We send hundreds of emails every week, yet almost nobody replies to book a five-minute chat.',
+  think:'Decision-makers read emails on their phones in three seconds. Long, generic introductions get deleted instantly.',
+  q1:'Which commercial activity needs a complete rewrite here?',
+  o:[
+   {k:'outreach',ok:1,w:'Yes. Effective cold outreach must be short, personalized, and focused on the recipient’s world.'},
+   {k:'roi',w:'No. Campaign ROI measures marketing return, not outbound prospecting message quality.'},
+   {k:'churn',w:'No. Churn rate measures existing client cancellations.'},
+   {k:'audience',w:'No. Target audience defines who you reach, whereas this problem is how you write first-contact messages.'}
+  ],
+  h1:'First-time contact with prospects via email, phone, or LinkedIn.',
+  t2:'gap',q2:'Complete the outbound playbook. Tap a word, then tap a gap.',
+  gap:{
+   s:[
+    {t:'First, we ___ target accounts by industry trigger, such as opening a new hotel or warehouse.',a:['segment']},
+    {t:'Next, we ___ our message around one relevant insight instead of a long product brochure.',a:['position']},
+    {t:'Finally, we ___ a low-friction 10-minute benchmark call rather than pushing a hard demo.',a:['pitch']}
+   ],
+   b:['segment','position','pitch','close']
+  },
+  why2:'Targeting a timely trigger, framing a sharp insight, and asking for a low-friction conversation dramatically boosts replies.',
+  h2:'Pick a trigger, frame a sharp insight, and propose a short call.',
+  model:'Instead of sending long generic templates, our cold outreach should reference a specific company trigger and pitch a brief ten-minute call.',
+  discuss:'In your group: What makes you open and reply to a cold LinkedIn message or email—and what makes you delete it immediately?'},
+
+ {title:'Expensive Booth, Cold Business Cards',car:'Event Follow-up',cust:'Sofia, Field Marketing Manager',pri:'Growth',tool:'conversion',
+  sit:'Your company spent €25,000 on a trade-show booth and scanned 180 visitor badges. Three weeks later, only 4 badges have turned into booked demos because reps sent one generic "Nice meeting you" email.',
+  quote:'We met 180 great people at the expo, so why did almost none of them turn into pipeline?',
+  think:'Collecting badge scans is only the start; turning event contacts into booked meetings requires fast, segmented follow-up.',
+  q1:'Which performance metric from badge scan to booked demo is failing here?',
+  o:[
+   {k:'conversion',ok:1,w:'Yes. The conversion rate from scanned event leads to booked demos collapsed due to slow, generic follow-up.'},
+   {k:'churn',w:'No. Churn rate tracks existing customers cancelling contracts.'},
+   {k:'objection',w:'No. An objection is a buyer concern during negotiations, not a lack of post-event follow-up.'},
+   {k:'pain',w:'No. Pain point is a customer problem, whereas the metric measuring scan-to-demo progress is conversion rate.'}
+  ],
+  h1:'The percentage of contacts who take the next desired action.',
+  t2:'order',q2:'Put the 180-lead event follow-up workflow in the right order.',
+  steps:[
+   'Tag all 180 badge scans by conversation topic and buying urgency within 24 hours.',
+   'Send a personalized follow-up referencing the exact booth discussion and a relevant case study.',
+   'Call hot prospects within 48 hours while the event is still fresh in their memory.',
+   'Enroll warm contacts into a 4-week educational sequence to nurture them over time.'
+  ],
+  why2:'Speed and context win after trade shows: tag notes fast, personalize outreach within 24–48 hours, and nurture the rest.',
+  h2:'Tag notes within 24 hours, personalize, call hot leads, nurture warm ones.',
+  model:'To improve our event conversion rate, we must tag booth notes within twenty-four hours, call hot leads fast, and nurture warm contacts.',
+  discuss:'In your team: Why do trade-show leads go cold so quickly after an event, and who should own the follow-up—Marketing or Sales?'},
+
+ {title:'The Silent VP Before Signing',car:'Pipeline Management',cust:'David, Enterprise Sales Rep',pri:'Urgent',tool:'funnel',
+  sit:'A mid-market prospect loved your demo, approved the technical specs, and requested a final contract. Now, five days before signing, your main contact has stopped replying to emails and calls.',
+  quote:'Everything looked ready to sign last Tuesday, and suddenly my champion went completely silent!',
+  think:'Deals rarely die because buyers hate you—they usually stall inside the buyer’s company when another executive asks tough questions.',
+  q1:'Where in the commercial process is this deal currently stuck?',
+  o:[
+   {k:'funnel',ok:1,w:'Yes. The deal is stalled near the bottom of the sales funnel, right between proposal and signature.'},
+   {k:'audience',w:'No. Target audience is top-of-funnel segmentation, not a late-stage deal stall.'},
+   {k:'roi',w:'No. Campaign ROI measures marketing spend return, not a stalled enterprise contract.'},
+   {k:'outreach',w:'No. Cold outreach is initial first contact, whereas this buyer already requested a contract.'}
+  ],
+  h1:'The multi-stage buyer journey from first awareness to signed deal.',
+  t2:'choice',q2:'What is the most effective way to unblock this stalled deal?',
+  c:[
+   {t:'Send a brief, pressure-free message asking if internal priorities shifted, and share a one-page executive summary your contact can forward to their VP or CFO.',ok:1,w:'Yes. Equipping your internal champion with a crisp business case helps them win approval from silent decision-makers.'},
+   {t:'Send three "Just checking in!" emails every morning until they reply.',w:'No. Repetitive "checking in" messages add zero value and annoy busy buyers.'},
+   {t:'Mark the deal as lost immediately and delete the contact from your CRM.',w:'No. Late-stage silence usually signals internal approval delays, not a final rejection.'}
+  ],
+  h2:'Help your champion sell internally with a crisp executive summary.',
+  model:'Deals often stall at the bottom of the sales funnel when finance reviews the budget. Let’s send a one-page business case our contact can share with their VP.',
+  discuss:'In your group: What is the difference between polite persistence and annoying a prospect when a deal goes quiet?'},
+
+ {title:'Last-Day Quarter Discount Demand',car:'Commercial Negotiation',cust:'Marcus, Regional Sales Director',pri:'Margin Risk',tool:'value',
+  sit:'On the final afternoon of Q3, a hotel group’s buyer calls and demands an extra 18% discount plus free custom onboarding in exchange for signing before 5:00 PM.',
+  quote:'Give us 18% off and free onboarding right now, or we push the decision to next year.',
+  think:'Never give away price or services for free—always trade a concession for something valuable in return.',
+  q1:'What must your concession remain anchored to so you do not give away profit blindly?',
+  o:[
+   {k:'value',ok:1,w:'Yes. Anchoring on your value proposition ensures any commercial trade protects the real worth of your solution.'},
+   {k:'churn',w:'No. Churn rate tracks existing customer cancellations, not quarter-end deal terms.'},
+   {k:'outreach',w:'No. Cold outreach is first-touch prospecting, not final contract negotiation.'},
+   {k:'lead',w:'No. Qualified lead defines early buyer fit, whereas this prospect is ready to sign today.'}
+  ],
+  h1:'The core business value your solution delivers to the client.',
+  t2:'gap',q2:'Complete the negotiation playbook. Tap a word, then tap a gap.',
+  gap:{
+   s:[
+    {t:'First, we ___ a fair trade: an 8% multi-year discount only if they sign a 24-month agreement.',a:['negotiate']},
+    {t:'Next, we confirm the implementation start date so both sides can ___ the deal cleanly.',a:['close']},
+    {t:'Finally, structured onboarding ensures we ___ the hotel group smoothly after signature.',a:['retain']}
+   ],
+   b:['negotiate','close','retain','segment']
+  },
+  why2:'Trade a smaller discount for a 24-month commitment, lock in the start date to close, and deliver strong onboarding to retain the client.',
+  h2:'Trade concessions for multi-year commitment, then lock in launch.',
+  model:'Instead of giving eighteen percent away for free, let’s negotiate a smaller discount in exchange for a twenty-four-month contract so we can close today.',
+  discuss:'In your team: Why is "If you do X for us, we can do Y for you" such a powerful rule in sales negotiation?'},
+
+ {title:'Happy Client Outgrowing Their Plan',car:'Account Expansion',cust:'Hannah, Customer Success Lead',pri:'Growth',tool:'pain',
+  sit:'A fast-growing restaurant group has used your starter plan for nine months. Their team is thrilled with the results, but they have hit 98% of their user limit and are manually exporting CSV files every week.',
+  quote:'Our managers love the system, though exporting spreadsheets between our twelve restaurants is getting slow.',
+  think:'When an existing customer hits usage limits and starts doing manual workarounds, growth has created a brand-new need.',
+  q1:'What has the client’s rapid growth created that your Pro plan solves directly?',
+  o:[
+   {k:'pain',ok:1,w:'Yes. Manual CSV exports across 12 locations are a clear operational pain point that justifies upgrading.'},
+   {k:'outreach',w:'No. Cold outreach is for strangers, whereas this is a happy existing customer.'},
+   {k:'objection',w:'No. The client is not objecting—they are actively expressing a workflow bottleneck.'},
+   {k:'funnel',w:'No. Sales funnel tracks new-logo acquisition, whereas this is existing account expansion.'}
+  ],
+  h1:'A new operational frustration caused by business growth.',
+  t2:'order',q2:'Put the Quarterly Business Review (QBR) expansion steps in the right order.',
+  steps:[
+   'Review the client’s 9-month success metrics and celebrate their growth.',
+   'Highlight the time lost on weekly manual CSV exports across all 12 sites.',
+   'Demonstrate how the Pro plan’s automatic multi-site sync solves that bottleneck.',
+   'Present a pro-rated upgrade proposal to upsell the Pro plan smoothly.'
+  ],
+  why2:'Start with their wins, spotlight the emerging growth bottleneck, show the exact upgrade fix, and propose a smooth transition.',
+  h2:'Celebrate wins first, spotlight the new bottleneck, then propose the upgrade.',
+  model:'During our quarterly review, we highlight the time lost on manual exports and upsell the Pro plan as a direct solution to their growth pain point.',
+  discuss:'In your group: Why is it often easier and more profitable to upsell a happy existing client than to win a brand-new customer?'},
+
+ {title:'Quiet Accounts Cancelling at Renewal',car:'Customer Retention',cust:'Claire, VP of Customer Experience',pri:'Margin Risk',tool:'churn',
+  sit:'Over the past two quarters, 14% of annual clients cancelled their contracts at renewal time. Looking at the data, most of those accounts had stopped logging in three months earlier—and nobody called them.',
+  quote:'By the time a client emails to cancel on renewal day, it is already too late to save the account!',
+  think:'Retention starts months before the renewal invoice arrives. Silent accounts are an early warning signal.',
+  q1:'Which critical business metric is rising dangerously here?',
+  o:[
+   {k:'churn',ok:1,w:'Yes. A 14% churn rate erodes recurring revenue and forces Marketing and Sales to work twice as hard.'},
+   {k:'conversion',w:'No. Conversion rate tracks new sign-ups or demos, not existing customer cancellations.'},
+   {k:'outreach',w:'No. Cold outreach contacts strangers, whereas these are existing paying customers.'},
+   {k:'audience',w:'No. Target audience defines who you market to initially, not customer retention.'}
+  ],
+  h1:'The percentage of existing customers who cancel over a period.',
+  t2:'choice',q2:'What is the strongest proactive retention plan?',
+  c:[
+   {t:'Set up automatic low-usage alerts at 60 days, run proactive health-check calls, and tie every account to clear business goals before renewal.',ok:1,w:'Yes. Catching silent usage drops early lets teams re-engage clients long before renewal day.'},
+   {t:'Hide the cancellation button on your website and make contracts harder to read.',w:'No. Trapping unhappy clients creates terrible reviews and destroys brand reputation.'},
+   {t:'Ignore low-usage accounts and ask Marketing to buy twice as many ads to replace lost clients.',w:'No. Pouring leads into a leaky bucket wastes acquisition budget.'}
+  ],
+  h2:'Monitor usage drops early and reach out months before renewal.',
+  model:'To reduce our churn rate and retain more clients, we must track usage drops early and schedule proactive health checks before renewal.',
+  discuss:'In your team: When a customer stops using your product or service quietly, why don’t they complain first—and how can you get honest feedback?'},
+
+ {title:'Defending Next Year’s Budget to the CFO',car:'Marketing Attribution',cust:'Henrik, Chief Financial Officer',pri:'Alignment',tool:'roi',
+  sit:'During annual budget planning, the CFO questions Marketing’s €180,000 request. Your team’s slide deck highlights 50,000 social media impressions and 1,200 webinar registrations, but shows zero revenue figures.',
+  quote:'Impressions and likes look nice, but how much actual signed revenue did Marketing generate this year?',
+  think:'Finance leaders approve budgets based on measurable pipeline and revenue return, not social media vanity metrics.',
+  q1:'Which financial marketing metric must you present clearly to win budget approval?',
+  o:[
+   {k:'roi',ok:1,w:'Yes. Showing verified campaign ROI proves that every euro invested in marketing generates profitable revenue.'},
+   {k:'pain',w:'No. Pain point is a buyer problem, whereas the CFO needs financial return data.'},
+   {k:'objection',w:'No. An objection is a buyer hesitation during a sale, not a marketing attribution metric.'},
+   {k:'outreach',w:'No. Cold outreach is an outbound tactic, not the financial return metric the CFO requested.'}
+  ],
+  h1:'Revenue generated by marketing compared to total campaign cost.',
+  t2:'choice',q2:'How do you present an undeniable business case to the CFO?',
+  c:[
+   {t:'Connect CRM data to show influenced pipeline, customer acquisition cost, and verified campaign ROI across your top three channels.',ok:1,w:'Yes. Tying marketing spend directly to closed revenue and acquisition cost speaks the CFO’s language.'},
+   {t:'Bring bigger charts showing Instagram likes, follower counts, and website pageviews.',w:'No. Vanity metrics without pipeline numbers reinforce the CFO’s doubt.'},
+   {t:'Cut all demand-generation programs and spend the entire €180,000 on branded stress balls.',w:'No. Unmeasured swag spending without attribution is even harder to justify to finance.'}
+  ],
+  h2:'Connect CRM pipeline and closed revenue to campaign spend.',
+  model:'To defend our budget, we must replace vanity likes with CRM data that proves our influenced pipeline and verified campaign ROI.',
+  discuss:'In your group: Which marketing metrics look impressive on the surface ("vanity metrics"), and which metrics actually prove business growth?'}
+];
+
+/* ---------- Game State & Progression ---------- */
+var G,W,C,view,pendingScroll=null;
+function newMatch(){return {round:0,sel:null,matched:{},mist:{},roundMist:false,flash:[],orders:ROUNDS.map(function(r){return shuffle(r)})}}
+function reset(){
+ G={xp:0,streak:0,best:0,hints:0};
+ W={step:0,done:[false,false,false,false],opened:{},nOpened:0,open:null,match:newMatch(),
+  fill:gapNew(FILL.map(function(f){return {t:f.t,a:[f.a]}}),FILL.map(function(f){return f.a})),spell:{i:0,cur:null,fin:false}};
+ C={i:0,r:[]};view='warm';
+}
+function lvl(){var k=0;LEVELS.forEach(function(l,j){if(G.xp>=l.at)k=j});return k}
+function renderHUD(){
+ var k=lvl(),L=LEVELS[k],N=LEVELS[k+1];
+ $('#hud-level').textContent=L.n;$('#hud-xp').textContent=G.xp;$('#hud-streak').textContent=G.streak;
+ $('#xpfill').style.width=(N?Math.min(100,(G.xp-L.at)/(N.at-L.at)*100):100)+'%';
+ $('#xpnext').textContent=N?(N.at-G.xp)+' XP to '+N.n:'Top rank achieved!';
+}
+function toast(msg,kind){
+ var box=$('#toasts'),d=document.createElement('div');d.className='toast '+(kind||'');d.textContent=msg;box.appendChild(d);
+ while(box.children.length>3)box.removeChild(box.firstChild);
+ setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},1850);
+}
+function addXP(n,silent){
+ var before=lvl();G.xp=Math.max(0,G.xp+n);
+ if(!silent&&n)toast((n>0?'+':'−')+Math.abs(n)+' XP');
+ if(lvl()>before)toast('Level up! You are a '+LEVELS[lvl()].n,'level');
+ renderHUD();
+}
+function tick(){G.streak++;G.best=Math.max(G.best,G.streak);if(G.streak>=3){addXP(3,true);toast('Streak x'+G.streak+'! +3 XP','level')}}
+function brk(){G.streak=0}
+
+/* ---------- Gap-Fill Component ---------- */
+function gapNew(sentences,bank){
+ var gaps=[];sentences.forEach(function(s,si){s.a.forEach(function(a){gaps.push({si:si,a:a,chip:null,locked:false})})});
+ return {sentences:sentences,gaps:gaps,chips:shuffle(bank.map(function(w,id){return {id:id,w:w}})),sel:null,active:null,checks:0,flash:[],msg:'',done:false};
+}
+function gapRender(g,key){
+ var gi=0;
+ var list=g.sentences.map(function(s){
+  var parts=s.t.split('___'),out='';
+  parts.forEach(function(p,pi){
+   out+=esc(p);
+   if(pi<parts.length-1){
+    var idx=gi++,gap=g.gaps[idx],chip=gap.chip!==null?g.chips.filter(function(c){return c.id===gap.chip})[0]:null;
+    out+='<button class="gap'+(gap.locked?' ok':'')+(chip?' filled':'')+(g.active===idx?' active':'')+(g.flash.indexOf(idx)>-1?' shake bad':'')+'" data-act="gapclick" data-g="'+key+'" data-i="'+idx+'" aria-label="Gap '+(idx+1)+(chip?': '+chip.w:' empty')+'">'+(chip?esc(chip.w):'&nbsp;')+'</button>';
+   }
+  });
+  return '<li class="sent">'+out+'</li>';
+ }).join('');
+ var used={};g.gaps.forEach(function(x){if(x.chip!==null)used[x.chip]=1});
+ var bank=g.chips.map(function(c){return '<button class="chip'+(used[c.id]?' used':'')+(g.sel===c.id?' sel':'')+'" data-act="gapchip" data-g="'+key+'" data-id="'+c.id+'"'+(used[c.id]?' disabled':'')+'>'+esc(c.w)+'</button>'}).join('');
+ var full=g.gaps.every(function(x){return x.chip!==null});
+ g.flash=[];
+ return '<div class="bank" aria-label="Word bank">'+bank+'</div><ol class="sents">'+list+'</ol>'+
+  (g.done?'':'<div class="row"><button class="btn primary" data-act="gapcheck" data-g="'+key+'"'+(full?'':' disabled')+'>Check</button><span class="msg">'+esc(g.msg)+'</span></div>');
+}
+function gapCheck(g){
+ var first=g.checks===0,right=0,wrong=0;g.checks++;g.flash=[];g.sel=null;
+ g.gaps.forEach(function(gap,i){
+  if(gap.locked||gap.chip===null)return;
+  var chip=g.chips.filter(function(c){return c.id===gap.chip})[0];
+  if(chip.w===gap.a){gap.locked=true;right++}else{gap.chip=null;wrong++;g.flash.push(i)}
+ });
+ g.done=g.gaps.every(function(x){return x.locked});
+ g.msg=g.done?'All correct!':right+' correct. Fix the red gaps.';
+ return {first:first,right:right,wrong:wrong,done:g.done};
+}
+function gapChip(g,id){
+ if(g.done)return;
+ var a=g.active!==null?g.gaps[g.active]:null;
+ if(a&&a.chip===null&&!a.locked){a.chip=id;g.active=null;g.sel=null}else g.sel=(g.sel===id)?null:id;
+}
+function gapClick(g,i){
+ var gap=g.gaps[i];if(gap.locked||g.done)return;
+ if(g.sel!==null){gap.chip=g.sel;g.sel=null;g.active=null}
+ else if(gap.chip!==null)gap.chip=null;
+ else g.active=(g.active===i)?null:i;
+}
+
+/* ---------- Order Component ---------- */
+function ordNew(steps){
+ var items=steps.map(function(t,i){return {id:i,t:t}}),sh;
+ do{sh=shuffle(items)}while(sh.every(function(x,i){return x.id===i}));
+ return {items:sh,slots:steps.map(function(){return null}),locked:steps.map(function(){return false}),flash:[],checks:0,done:false,msg:''};
+}
+function ordRender(o){
+ var used={};o.slots.forEach(function(x){if(x!==null)used[x]=1});
+ var slots=o.slots.map(function(id,i){
+  var it=id!==null?o.items.filter(function(x){return x.id===id})[0]:null;
+  return '<li><button class="oslot'+(it?' filled':'')+(o.locked[i]?' ok':'')+(o.flash.indexOf(i)>-1?' shake bad':'')+'" data-act="oslot" data-i="'+i+'"><span class="onum">'+(i+1)+'</span><span>'+(it?esc(it.t):'Tap a step below')+'</span></button></li>';
+ }).join('');
+ var pool=o.items.filter(function(x){return !used[x.id]}).map(function(x){return '<button class="ostep" data-act="ostep" data-id="'+x.id+'">'+esc(x.t)+'</button>'}).join('');
+ var full=o.slots.every(function(x){return x!==null});
+ o.flash=[];
+ return '<ol class="olist">'+slots+'</ol>'+(o.done?'':'<div class="pool">'+pool+'</div><div class="row"><button class="btn primary" data-act="ocheck"'+(full?'':' disabled')+'>Check</button><span class="msg">'+esc(o.msg)+'</span></div>');
+}
+function ordCheck(o){
+ var first=o.checks===0,wrong=0;o.checks++;o.flash=[];
+ o.slots.forEach(function(id,i){
+  if(o.locked[i]||id===null)return;
+  if(id===i)o.locked[i]=true;else{o.slots[i]=null;o.flash.push(i);wrong++}
+ });
+ o.done=o.locked.every(Boolean);
+ o.msg=o.done?'Perfect order!':'Some steps are in the wrong place. Try again.';
+ return {first:first,wrong:wrong,done:o.done};
+}
+
+/* ---------- Warm-Up Views ---------- */
+function panelWords(){
+ var cards=V.map(function(v,i){
+  var open=W.open===i,seen=!!W.opened[i];
+  return '<div class="wcard '+v.t+(open?' open':'')+(seen?' seen':'')+'"><button class="whead" data-act="wopen" data-i="'+i+'" aria-expanded="'+open+'">'+
+   (v.t==='tool'?icon(v.k,40):'<span class="vtag">verb</span>')+'<span class="wword">'+esc(v.w)+'</span><span class="seen-dot" title="'+(seen?'Seen':'Not opened yet')+'"></span></button>'+
+   (open?'<div class="wbody"><p>'+esc(v.d)+'</p><p class="wex">“'+esc(v.e)+'”</p>'+(SPEAK?'<div><button class="btn small" data-act="speak" data-i="'+i+'">Listen</button></div>':'')+'</div>':'')+'</div>';
+ }).join('');
+ return '<p class="lead">Tap a card. Read the meaning. Listen and say the word. <b>'+W.nOpened+' / 20</b> words seen.</p><div class="wgrid">'+cards+'</div>'+
+  '<div class="row"><span></span><button class="btn primary" data-act="wstep" data-i="1">Next: Match</button></div>';
+}
+function panelMatch(){
+ var m=W.match,ids=ROUNDS[m.round],fl=m.flash||[];
+ var left=ids.map(function(i){var ok=m.matched[i];return '<button class="mitem'+(ok?' ok':'')+(m.sel===i?' sel':'')+(fl[0]===i?' shake bad':'')+'" data-act="mL" data-i="'+i+'"'+(ok?' disabled':'')+'>'+esc(V[i].w)+(ok?' '+CHECK:'')+'</button>'}).join('');
+ var right=m.orders[m.round].map(function(i){var ok=m.matched[i];return '<button class="mdef'+(ok?' ok':'')+(fl[1]===i?' shake bad':'')+'" data-act="mR" data-i="'+i+'"'+(ok?' disabled':'')+'>'+esc(V[i].d)+'</button>'}).join('');
+ m.flash=[];
+ var complete=ids.every(function(i){return m.matched[i]});
+ var last=m.round===ROUNDS.length-1;
+ return '<div class="row"><h3>Round '+(m.round+1)+' / 4 · '+(m.round<2?'Concepts':'Verbs')+'</h3></div><p class="lead">Tap a word on the left. Then tap its meaning on the right.</p>'+
+  '<div class="mgrid"><div class="mcol">'+left+'</div><div class="mcol">'+right+'</div></div>'+
+  (complete?'<div class="row"><b>Round complete!</b><button class="btn primary" data-act="mnext">'+(last?'Next: Fill the gaps':'Next round')+'</button></div>':'');
+}
+function panelFill(){
+ var g=W.fill;
+ return '<p class="lead">Tap a word in the bank. Then tap a gap. Press Check.</p>'+gapRender(g,'fill')+
+  (g.done?'<div class="row"><b>All 10 correct!</b><button class="btn primary" data-act="wstep" data-i="3">Next: Spell it</button></div>':'');
+}
+function spellInit(i){
+ var word=SPELL[i],letters=word.replace(/ /g,'').split(''),tiles=letters.map(function(c,id){return {id:id,c:c}}),sh,n=0;
+ do{sh=shuffle(tiles);n++}while(n<20&&sh.map(function(t){return t.c}).join('')===letters.join(''));
+ return {word:word,tiles:sh,slots:letters.map(function(){return null}),locked:letters.map(function(){return false}),tries:0,hint:false,solved:false,flash:false};
+}
+function panelSpell(){
+ var S=W.spell;
+ if(S.fin)return '<div class="rank"><h2>Warm-up complete</h2><p class="lead">You know the 20 commercial terms and verbs. Now solve 12 Sales &amp; Marketing cases.</p></div><div class="row" style="justify-content:center"><button class="btn primary" data-act="tab" data-v="chal">Start the cases</button></div>';
+ if(!S.cur)S.cur=spellInit(S.i);
+ var c=S.cur,v=V[VI[c.word]],used={};
+ c.slots.forEach(function(x){if(x!==null)used[x]=1});
+ var pos=0,groups=c.word.split(' ').map(function(w){
+  var s='';for(var k=0;k<w.length;k++){var idx=pos++,id=c.slots[idx],t=id!==null?c.tiles.filter(function(x){return x.id===id})[0]:null;
+   s+='<button class="slot'+(t?' f':'')+(c.locked[idx]?' lock':'')+(c.solved?' ok':'')+(c.flash&&!c.locked[idx]?' shake bad':'')+'" data-act="sslot" data-i="'+idx+'" aria-label="Letter '+(idx+1)+'">'+(t?esc(t.c):'')+'</button>'}
+  return '<div class="slotgrp">'+s+'</div>';}).join('');
+ c.flash=false;
+ var tiles=c.tiles.map(function(t){return '<button class="tile'+(used[t.id]?' used':'')+'" data-act="stile" data-id="'+t.id+'"'+(used[t.id]?' disabled':'')+'>'+esc(t.c)+'</button>'}).join('');
+ return '<div class="row"><h3>Word '+(S.i+1)+' / 10</h3><span class="chip-h">'+(v.t==='tool'?'Concept':'Verb')+'</span></div>'+
+  '<div class="clue">'+(v.t==='tool'?icon(v.k,52):'')+'<p>'+esc(v.d)+'</p></div>'+
+  '<div class="slots" aria-label="Your answer">'+groups+'</div>'+(c.solved?'':'<div class="tiles">'+tiles+'</div>')+
+  (c.solved?'<div class="row"><b>Yes! '+esc(c.word)+'</b><button class="btn primary" data-act="snext">'+(S.i===9?'Finish warm-up':'Next word')+'</button></div>'
+   :'<div class="row"><button class="btn small ghost" data-act="shint"'+(c.hint?' disabled':'')+'>First letter (less XP)</button><button class="btn small ghost" data-act="sclear">Clear</button></div>');
+}
+function viewWarm(){
+ var names=['Words','Match','Fill the gaps','Spell it'];
+ var nav=names.map(function(n,i){return '<button class="sub'+(W.step===i?' on':'')+(W.done[i]?' done':'')+'" data-act="wstep" data-i="'+i+'"><span class="subn">'+(W.done[i]?CHECK:i+1)+'</span>'+n+'</button>'}).join('');
+ var body=[panelWords,panelMatch,panelFill,panelSpell][W.step]();
+ return '<div class="intro"><h1>Warm up your commercial words</h1><p>20 Marketing &amp; Sales terms and verbs. Then solve 12 real commercial cases. Win XP and become VP of Marketing &amp; Sales.</p></div><nav class="subnav" id="subnav" aria-label="Warm-up steps">'+nav+'</nav><section class="panel" id="panel">'+body+'</section>';
+}
+
+/* ---------- Sales & Marketing Cases ---------- */
+function ensureRes(i){
+ if(!C.r[i]){
+  var sc=SC[i];
+  C.r[i]={q1:{wrong:0,hint:false,picked:[],done:false},q2:{wrong:0,hint:false,picked:[],done:false,g:null,o:null,opts:null},xp:0,done:false,stars:0,opts:shuffle(sc.o)};
+  if(sc.t2==='gap')C.r[i].q2.g=gapNew(sc.gap.s,sc.gap.b);
+  if(sc.t2==='order')C.r[i].q2.o=ordNew(sc.steps);
+  if(sc.t2==='choice')C.r[i].q2.opts=shuffle(sc.c);
+ }
+ return C.r[i];
+}
+function curRes(){return ensureRes(C.i)}
+function gain(r,n){addXP(n);r.xp+=n}
+function finishJob(r){
+ r.done=true;
+ var pen=r.q1.wrong+r.q2.wrong+(r.q1.hint?1:0)+(r.q2.hint?1:0);
+ r.stars=pen===0?3:pen<=2?2:1;
+ pendingScroll='#debrief';
+}
+function award(r,q){
+ var w=r[q].wrong,base=w===0?20:w===1?10:5;
+ r[q].done=true;gain(r,base);
+ if(w===0)tick();
+ if(q==='q1')pendingScroll='#q2';else finishJob(r);
+}
+function hintBtn(r,q){
+ if(r[q].done)return '';
+ if(r[q].hint)return '<div class="hint"><b>Hint:</b> '+esc(SC[C.i][q==='q1'?'h1':'h2'])+'</div>';
+ return '<div><button class="btn small ghost" data-act="hint" data-q="'+q+'">Need a hint? −5 XP</button></div>';
+}
+function priClass(p){return 'pri pri-'+p.toLowerCase().replace(/\s+/g,'-')}
+function viewChal(){
+ var i=C.i,sc=SC[i],r=ensureRes(i);
+ var rail=SC.map(function(s,j){var rr=C.r[j];return '<button class="rn'+(j===i?' cur':'')+(rr&&rr.done?' done':'')+'" data-act="goto" data-i="'+j+'" aria-label="Case '+(j+1)+': '+esc(s.title)+'">'+(j+1)+'</button>'}).join('');
+ var opts=r.opts.map(function(o){
+  var picked=r.q1.picked.indexOf(o.k)>-1,st=picked?(o.ok?' good':' bad'):'',show=picked||r.q1.done;
+  return '<button class="opt'+st+'" data-act="pick1" data-t="'+o.k+'"'+((r.q1.done||picked)?' disabled':'')+'>'+icon(o.k,46)+'<b>'+esc(V.filter(function(v){return v.k===o.k})[0].w)+'</b>'+(show?'<span class="why">'+esc(o.w)+'</span>':'')+'</button>';
+ }).join('');
+ var q2='';
+ if(r.q1.done){
+  var body='';
+  if(sc.t2==='choice'){
+   body='<div class="stack" style="gap:8px">'+r.q2.opts.map(function(o,j){
+    var picked=r.q2.picked.indexOf(j)>-1,st=picked?(o.ok?' good':' bad'):'',show=picked||r.q2.done;
+    return '<button class="copt'+st+'" data-act="pick2" data-i="'+j+'"'+((r.q2.done||picked)?' disabled':'')+'><span class="cl">'+'ABC'.charAt(j)+'</span><span class="ct">'+esc(o.t)+(show?'<span class="why">'+esc(o.w)+'</span>':'')+'</span></button>';
+   }).join('')+'</div>';
+  }else if(sc.t2==='order'){body=ordRender(r.q2.o)}
+  else{body=gapRender(r.q2.g,'sc')}
+  q2='<section class="step" id="q2"><h3><span class="stepn">STEP 2</span>'+esc(sc.q2)+'</h3>'+body+hintBtn(r,'q2')+
+   (r.q2.done&&sc.why2?'<div class="explain"><b>Why?</b> '+esc(sc.why2)+'</div>':'')+'</section>';
+ }
+ var deb='';
+ if(r.done){
+  var last=i===SC.length-1;
+  deb='<section class="debrief" id="debrief"><div class="row"><h3>Case closed!</h3>'+starsHTML(r.stars)+'</div><p><b>'+r.xp+' XP</b> earned on this case.</p>'+
+   '<div class="say"><span class="mono">Say it out loud</span><p>“'+esc(sc.model)+'”</p>'+(SPEAK?'<div><button class="btn small" data-act="speakm">Listen</button></div>':'')+'<p class="lead">Now say it in your own words to your partner or group.</p></div>'+
+   '<div class="discuss"><b>Team discussion</b><span>'+esc(sc.discuss)+'</span></div>'+
+   '<div class="row"><span></span><button class="btn primary" data-act="next">'+(last?'See my results':'Next case')+'</button></div></section>';
+ }
+ return '<div class="rail" role="navigation" aria-label="Sales and marketing cases">'+rail+'</div>'+
+  '<div class="stack"><article class="job"><header class="jobhead mono"><span>Commercial case</span><span>#'+(5040+i+1)+(i===SC.length-1?' · Final case':'')+'</span></header>'+
+  '<div class="jobbody"><h2>'+esc(sc.title)+'</h2><dl class="fields"><div><dt>Channel / Stage</dt><dd>'+esc(sc.car)+'</dd></div><div><dt>Stakeholder</dt><dd>'+esc(sc.cust)+'</dd></div><div><dt>Priority</dt><dd><span class="'+priClass(sc.pri)+'">'+esc(sc.pri)+'</span></dd></div></dl>'+
+  '<p>'+esc(sc.sit)+'</p><blockquote class="quote">'+esc(sc.quote)+'</blockquote></div>'+
+  '<div class="think"><b>Think &amp; discuss</b><span>'+esc(sc.think)+'</span></div></article>'+
+  '<section class="step" id="q1"><h3><span class="stepn">STEP 1</span>'+esc(sc.q1)+'</h3><div class="opts">'+opts+'</div>'+hintBtn(r,'q1')+'</section>'+
+  q2+deb+'</div>';
+}
+
+/* ---------- Results ---------- */
+function viewRes(){
+ var done=C.r.filter(function(r){return r&&r.done}).length;
+ var stars=C.r.reduce(function(a,r){return a+(r&&r.done?r.stars:0)},0);
+ var three=C.r.filter(function(r){return r&&r.done&&r.stars===3}).length;
+ try{var b=+localStorage.getItem('mse_best')||0;if(G.xp>b)localStorage.setItem('mse_best',G.xp)}catch(e){}
+ function clean(j){var r=C.r[j];return !!(r&&r.done&&r.q1.wrong+r.q2.wrong===0)}
+ var badges=[
+  {n:'Vocab Pro',d:'Finish all 4 warm-up steps',ok:W.done.every(Boolean)},
+  {n:'Full Pipeline',d:'Finish all 12 cases',ok:done===12},
+  {n:'Value Defender',d:'Cases 3, 9 and 12 right first time',ok:clean(2)&&clean(8)&&clean(11)},
+  {n:'No Hints',d:'All 12 cases without a hint',ok:done===12&&G.hints===0},
+  {n:'Triple Star',d:'3 stars on 8 or more cases',ok:three>=8}
+ ];
+ var pegs=SC.map(function(s,j){var r=C.r[j],ok=r&&r.done;
+  return '<div class="peg'+(ok?' on':'')+'">'+(ok?icon(s.tool,34):'<span class="mono">'+(j+1)+'</span>')+'<span>'+esc(s.title)+'</span>'+(ok?starsHTML(r.stars):'')+'</div>'}).join('');
+ return '<div class="panel"><div class="rank"><span class="mono">Your rank</span><h2>'+LEVELS[lvl()].n+'</h2></div>'+
+  '<div class="stats"><div class="stat"><b>'+G.xp+'</b>XP</div><div class="stat"><b>'+done+' / 12</b>Cases done</div><div class="stat"><b>'+stars+' / 36</b>Stars</div></div>'+
+  '<h3>Your commercial portfolio</h3><div class="pegs">'+pegs+'</div>'+
+  '<h3>Badges</h3><div class="badges">'+badges.map(function(x){return '<div class="badge'+(x.ok?' on':'')+'"><b>'+x.n+'</b><span>'+x.d+'</span></div>'}).join('')+'</div>'+
+  '<h3>Speaking &amp; Roleplay Prompts (Solo or Group of 2–4)</h3>'+
+  '<ol class="talk">'+
+   '<li><b>Pitch your value proposition:</b> In 45 seconds, pitch your company’s main product or service to a skeptical buyer. Include your <em>target audience</em>, their main <em>pain point</em>, and one measurable outcome.</li>'+
+   '<li><b>Roleplay — Handle a 20% price objection:</b> Trainee A plays a procurement manager demanding a 20% discount. Trainee B defends the price without cutting margin and negotiates a smart trade.</li>'+
+   '<li><b>Align Marketing &amp; Sales:</b> Describe one real handoff gap between Marketing and Sales (for example lead quality, event follow-up, or content). How can both teams fix it together?</li>'+
+   '<li><b>From first touch to renewal:</b> Explain how a customer moves through your <em>sales funnel</em> from <em>cold outreach</em> or inbound lead to <em>close</em>, <em>upsell</em>, and <em>retain</em>. Use: <em>first, then, after that, finally</em>.</li>'+
+  '</ol>'+
+  '<div class="row"><button class="btn" data-act="tab" data-v="chal">Back to cases</button><button class="btn primary" data-act="again">Play again</button></div></div>';
+}
+
+/* ---------- Render + Events ---------- */
+function keyOf(e){return ['act','i','id','g','t','q'].map(function(k){return e.dataset[k]||''}).join('|')}
+function render(){
+ renderHUD();
+ var tabs=[['warm','Warm-up','20 words'],['chal','Sales & Marketing','12 cases'],['res','Results','Your rank']];
+ $('#tabs').innerHTML=tabs.map(function(t,i){return '<button class="tab'+(view===t[0]?' on':'')+'" data-act="tab" data-v="'+t[0]+'"><small>'+(i+1)+'</small>'+t[1]+'</button>'}).join('');
+ var a=document.activeElement,fk=(a&&a.dataset&&a.dataset.act)?keyOf(a):null;
+ $('#app').innerHTML=view==='warm'?viewWarm():view==='chal'?viewChal():viewRes();
+ if(fk){var el=$$('[data-act]').filter(function(e){return keyOf(e)===fk})[0];if(el&&!el.disabled)el.focus({preventScroll:true})}
+ if(pendingScroll){var t=$(pendingScroll);pendingScroll=null;if(t)t.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}
+}
+function go(v,sel){view=v;pendingScroll=sel||'.tabs';render()}
+function getG(k){return k==='fill'?W.fill:curRes().q2.g}
+function placeTile(c,id){
+ var idx=c.slots.findIndex(function(x,i){return x===null&&!c.locked[i]});
+ if(idx>-1)c.slots[idx]=id;
+}
+function spellCheck(c){
+ var g=c.slots.map(function(id){return c.tiles.filter(function(t){return t.id===id})[0].c}).join('');
+ if(g===c.word.replace(/ /g,'')){
+  c.solved=true;var base=(c.tries===0&&!c.hint)?10:5;addXP(base);if(base===10)tick();
+ }else{c.tries++;c.flash=true;if(c.tries===1)brk();toast('Not yet. Try again.')}
+}
+document.addEventListener('click',function(e){
+ var b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+ var d=b.dataset,i=+d.i,r;
+ switch(d.act){
+ case 'tab':go(d.v);return;
+ case 'again':reset();go('warm');return;
+ case 'wstep':W.step=i;pendingScroll='#subnav';break;
+ case 'wopen':W.open=W.open===i?null:i;
+  if(!W.opened[i]){W.opened[i]=1;W.nOpened++;addXP(1,true);if(W.nOpened===20&&!W.done[0]){W.done[0]=true;toast('All 20 words seen!')}}break;
+ case 'speak':speak(V[i].w+'. '+V[i].e);return;
+ case 'speakm':speak(SC[C.i].model);return;
+ case 'mL':if(!W.match.matched[i])W.match.sel=i;break;
+ case 'mR':{var m=W.match;if(m.matched[i])break;
+  if(m.sel===null){toast('Tap a word first');return}
+  if(m.sel===i){var cl=!m.mist[i];m.matched[i]=1;addXP(cl?5:2);m.sel=null;
+   if(ROUNDS[m.round].every(function(x){return m.matched[x]})){if(!m.roundMist)tick();if(m.round===3)W.done[1]=true}}
+  else{m.mist[m.sel]=(m.mist[m.sel]||0)+1;m.flash=[m.sel,i];if(!m.roundMist)brk();m.roundMist=true;m.sel=null}
+  break}
+ case 'mnext':{var mm=W.match;if(mm.round<3){mm.round++;mm.sel=null;mm.roundMist=false}else{W.step=2}pendingScroll='#subnav';break}
+ case 'gapchip':gapChip(getG(d.g),+d.id);break;
+ case 'gapclick':gapClick(getG(d.g),i);break;
+ case 'gapcheck':{
+  var g=getG(d.g),res=gapCheck(g);
+  if(d.g==='fill'){
+   addXP(res.right*(res.first?10:5));
+   if(res.first){if(res.wrong===0)tick();else brk()}
+   if(res.done)W.done[2]=true;
+  }else{
+   r=curRes();
+   if(res.wrong>0){r.q2.wrong++;brk()}
+   if(res.done)award(r,'q2');
+  }break}
+ case 'ostep':{var o=curRes().q2.o;if(!o.done)placeTile(o,+d.id);break}
+ case 'oslot':{var o2=curRes().q2.o;if(!o2.locked[i]&&o2.slots[i]!==null&&!o2.done)o2.slots[i]=null;break}
+ case 'ocheck':{r=curRes();var rs=ordCheck(r.q2.o);if(rs.wrong>0){r.q2.wrong++;brk()}if(rs.done)award(r,'q2');break}
+ case 'stile':{var S=W.spell,c=S.cur;if(c.solved)break;placeTile(c,+d.id);if(c.slots.every(function(x){return x!==null}))spellCheck(c);break}
+ case 'sslot':{var c2=W.spell.cur;if(c2.solved||c2.locked[i]||c2.slots[i]===null)break;c2.slots[i]=null;break}
+ case 'sclear':{var c3=W.spell.cur;c3.slots=c3.slots.map(function(x,k){return c3.locked[k]?x:null});break}
+ case 'shint':{var c4=W.spell.cur;if(c4.hint||c4.solved)break;c4.hint=true;
+  var first=c4.word.charAt(0),used={};c4.slots.forEach(function(x,k){if(x!==null&&k!==0)used[x]=1});
+  var t=c4.tiles.filter(function(x){return x.c===first&&!used[x.id]})[0];
+  c4.slots[0]=t.id;c4.locked[0]=true;
+  c4.slots=c4.slots.map(function(x,k){return (k>0&&x===t.id)?null:x});break}
+ case 'snext':{var S2=W.spell;if(S2.i===9){S2.fin=true;W.done[3]=true}else{S2.i++;S2.cur=spellInit(S2.i)}pendingScroll='#subnav';break}
+ case 'goto':C.i=i;pendingScroll='.rail';break;
+ case 'next':if(C.i<SC.length-1){C.i++;pendingScroll='.rail'}else{view='res';pendingScroll='.tabs'}break;
+ case 'hint':r=curRes();r[d.q].hint=true;G.hints++;gain(r,-5);break;
+ case 'pick1':{r=curRes();var opt=SC[C.i].o.filter(function(x){return x.k===d.t})[0];
+  r.q1.picked.push(d.t);
+  if(opt.ok)award(r,'q1');else{r.q1.wrong++;brk()}break}
+ case 'pick2':{r=curRes();var op=r.q2.opts[i];r.q2.picked.push(i);
+  if(op.ok)award(r,'q2');else{r.q2.wrong++;brk()}break}
+ }
+ render();
+});
+reset();render();
+})();
+</script>
+</body>
+</html>

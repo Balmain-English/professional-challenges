@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromoPop Studio - Creative Dilemmas Team Game</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; background:#faf5ff; color:#1e1b4b; }
+  .perspective-1000 { perspective: 1000px; }
+  .flashcard-inner { position:relative; width:100%; height:100%; transition: transform .6s cubic-bezier(.4,0,.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front,.flashcard-back { position:absolute; width:100%; height:100%; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:1rem; }
+  .flashcard-back { transform: rotateY(180deg); }
+  .vocab-term { background:#fce7f3; color:#9d174d; font-weight:700; padding:.1rem .4rem; border-radius:.25rem; border-bottom:2px solid #db2777; cursor:pointer; display:inline-block; transition:.2s; }
+  .vocab-term:hover { background:#fbcfe8; transform:translateY(-1px); }
+  @keyframes pulseEm { 0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.4);} 50%{box-shadow:0 0 0 10px rgba(220,38,38,0);} }
+  .emergency-card { animation: pulseEm 2s infinite; border:3px solid #dc2626 !important; }
+  .card-slide { animation: slideIn .3s ease-out forwards; }
+  @keyframes slideIn { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes shake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-6px);} 40%,80%{transform:translateX(6px);} }
+  .animate-shake { animation: shake .4s ease-in-out; }
+  .meter-fill { transition: width .6s ease; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+<!-- HEADER -->
+<header class="bg-indigo-950 text-white shadow-xl sticky top-0 z-30 border-b-4 border-pink-500">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+    <div class="flex items-center space-x-3">
+      <div class="bg-pink-100 w-12 h-12 rounded-2xl border-2 border-pink-500 flex items-center justify-center text-3xl">🎁</div>
+      <div>
+        <h1 class="font-extrabold text-lg md:text-xl leading-tight">PromoPop <span class="text-pink-400">Studio</span></h1>
+        <p class="text-xs text-indigo-200 font-medium">Creative Dilemmas for Marketing &amp; Design Teams (Low B1 English)</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleGlossaryModal()" class="text-xs md:text-sm bg-indigo-900 hover:bg-indigo-800 text-indigo-100 px-3 py-1.5 rounded-lg border border-indigo-700 font-semibold">📖 Glossary</button>
+      <button onclick="toggleSound()" id="sound-btn" class="text-xs bg-indigo-900 hover:bg-indigo-800 p-1.5 rounded-lg border border-indigo-700">🔊</button>
+    </div>
+  </div>
+
+  <!-- Team Meters -->
+  <div class="bg-indigo-900/70 border-t border-indigo-800">
+    <div class="max-w-6xl mx-auto px-4 py-2 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-1" id="header-meters"></div>
+  </div>
+
+  <nav class="bg-indigo-950 border-t border-indigo-800 px-2 sm:px-4">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-1">
+      <div class="flex flex-wrap gap-1 py-1">
+        <button onclick="switchTab('discussion')" id="tab-btn-discussion" class="tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold">💬 1. Team Warm-Up</button>
+        <button onclick="switchTab('vocabulary')" id="tab-btn-vocabulary" class="tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold">🎴 2. Industry Vocabulary</button>
+        <button onclick="switchTab('truefalse')" id="tab-btn-truefalse" class="tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold">✔️ 3. True / False</button>
+        <button onclick="switchTab('simulation')" id="tab-btn-simulation" class="tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold">🚀 4. Dilemma Game</button>
+      </div>
+      <button onclick="switchTab('simulation')" class="my-1 text-xs bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 font-extrabold px-3 py-1.5 rounded-lg border border-pink-500/50 ml-auto">Skip to Game ➔</button>
+    </div>
+  </nav>
+</header>
+
+<main class="max-w-5xl mx-auto w-full px-4 py-6 flex-grow">
+
+<!-- ============ TAB 1 ============ -->
+<section id="tab-discussion" class="card-slide">
+  <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border-t-8 border-pink-500 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-3xl">🗣️</span>
+      <div>
+        <h2 class="text-2xl font-extrabold">Module 1: Team Warm-Up</h2>
+        <p class="text-sm text-slate-600">Work in a team of 2 to 4. Speak English together. There are no perfect answers in this game!</p>
+      </div>
+    </div>
+
+    <!-- Team setup -->
+    <div class="bg-indigo-950 text-white rounded-2xl p-5 mb-6">
+      <h3 class="font-extrabold text-pink-300 mb-1">👥 Step 1: Choose your team roles</h3>
+      <p class="text-xs text-indigo-200 mb-3">How many people are in your team?</p>
+      <div class="flex gap-2 mb-4" id="player-buttons"></div>
+      <div id="role-assignment" class="grid sm:grid-cols-2 gap-3 text-sm"></div>
+      <p class="text-[11px] text-indigo-300 mt-3">In every dilemma, the role shown as "Speaks first" gives an opinion first. Then everyone talks. Decide <strong>together</strong> before you click an answer.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 my-6">
+      <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5 hover:border-pink-500 transition">
+        <span class="bg-pink-100 text-pink-900 text-xs font-black uppercase px-2.5 py-1 rounded-md inline-block mb-3">Question 1 • Our Products</span>
+        <h3 class="font-bold text-base md:text-lg mb-2">Why do hotels and restaurants give away branded items (pens, bags, mugs)? When does a free gift really work?</h3>
+        <p class="text-xs text-slate-600">Think about: useful or not? Memorable? Does the guest keep it or throw it away?</p>
+        <p class="text-xs text-pink-900 bg-pink-50 p-2 rounded border border-pink-200 font-medium mt-3">"A good giveaway is useful because..." <br>"I always keep / throw away free gifts like..."</p>
+      </div>
+      <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5 hover:border-indigo-500 transition">
+        <span class="bg-indigo-100 text-indigo-900 text-xs font-black uppercase px-2.5 py-1 rounded-md inline-block mb-3">Question 2 • Our Work</span>
+        <h3 class="font-bold text-base md:text-lg mb-2">What is more important in our job: a beautiful design, a happy client, or a good price? Can we have all three?</h3>
+        <p class="text-xs text-slate-600">Think about: deadlines, budget, creative freedom, quality, the planet.</p>
+        <p class="text-xs text-indigo-900 bg-indigo-50 p-2 rounded border border-indigo-200 font-medium mt-3">"For me, the most important thing is... because..." <br>"I disagree, because the client..."</p>
+      </div>
+    </div>
+
+    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl mb-6 text-sm text-amber-900">
+      <p class="font-bold mb-1">🗨️ Useful phrases for team discussion</p>
+      <p class="text-xs md:text-sm leading-relaxed">"I think we should... because..." • "What do you think?" • "I see your point, but..." • "The risk is that..." • "On the other hand..." • "Let's vote." • "Can we find a compromise?"</p>
+    </div>
+
+    <div class="bg-indigo-950 text-white rounded-2xl p-5 shadow-inner">
+      <label for="discussion-notes" class="block text-sm font-bold text-pink-300 mb-2">📝 Team notes (optional):</label>
+      <textarea id="discussion-notes" rows="3" class="w-full bg-indigo-900 text-indigo-50 text-sm p-3 rounded-xl border border-indigo-700 focus:outline-none focus:border-pink-400" placeholder="Write ideas and useful phrases here..."></textarea>
+      <div class="flex justify-between items-center mt-2">
+        <span class="text-[11px] text-indigo-300">Notes are saved in your browser.</span>
+        <button onclick="switchTab('vocabulary')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold px-4 py-2 rounded-lg text-xs">Next: Vocabulary ➔</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 2 ============ -->
+<section id="tab-vocabulary" class="hidden card-slide">
+  <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border-t-8 border-indigo-500 mb-6">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-slate-200">
+      <div>
+        <h2 class="text-2xl font-extrabold">🎴 Module 2: Industry Vocabulary</h2>
+        <p class="text-sm text-slate-600 mt-1">12 key words for marketing, design and promotional products.</p>
+      </div>
+      <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+        <button onclick="setVocabSubTab('flashcards')" id="sub-btn-flashcards" class="px-4 py-1.5 rounded-lg text-xs font-extrabold bg-white shadow">🎴 Flashcards</button>
+        <button onclick="setVocabSubTab('matching')" id="sub-btn-matching" class="px-4 py-1.5 rounded-lg text-xs font-extrabold text-slate-600">🧩 Matching Game</button>
+      </div>
+    </div>
+
+    <div id="vocab-sub-flashcards">
+      <div class="max-w-xl mx-auto">
+        <div class="flex justify-between items-center mb-3 text-xs font-bold text-slate-500">
+          <span id="flashcard-counter">Card 1 of 12</span>
+          <span class="text-pink-900 bg-pink-100 px-2.5 py-0.5 rounded-full">Click card to flip 🔄</span>
+        </div>
+        <div class="perspective-1000 w-full h-80 cursor-pointer" onclick="flipCurrentCard()">
+          <div id="flashcard-element" class="flashcard w-full h-full">
+            <div class="flashcard-inner rounded-2xl shadow-xl">
+              <div class="flashcard-front bg-gradient-to-br from-indigo-950 to-indigo-800 text-white p-6 flex flex-col justify-between border-4 border-pink-500">
+                <div class="flex justify-between items-center">
+                  <span class="bg-pink-500 text-white font-black text-[10px] uppercase px-2.5 py-1 rounded">Studio Term</span>
+                  <span id="card-pos" class="text-xs text-pink-300 font-mono italic">noun</span>
+                </div>
+                <div class="text-center my-auto">
+                  <h3 id="card-term" class="text-3xl md:text-4xl font-black">Brief</h3>
+                  <p id="card-phonetic" class="text-xs text-indigo-300 mt-1 italic"></p>
+                </div>
+                <div class="bg-indigo-950/80 p-3 rounded-xl border border-indigo-700 text-xs text-indigo-100">
+                  <span class="text-pink-300 font-bold block mb-0.5">Sample sentence:</span>
+                  <p id="card-sentence" class="italic"></p>
+                </div>
+              </div>
+              <div class="flashcard-back bg-gradient-to-br from-pink-50 to-white text-slate-900 p-6 flex flex-col justify-between border-4 border-pink-500">
+                <div>
+                  <span class="bg-pink-500 text-white font-black text-[10px] uppercase px-2.5 py-1 rounded">Definition</span>
+                  <h4 id="card-back-term" class="text-xl font-black text-pink-900 mt-1"></h4>
+                </div>
+                <div class="my-auto"><p id="card-definition" class="text-base md:text-lg font-bold leading-snug"></p></div>
+                <div class="bg-pink-500/10 p-3 rounded-xl border border-pink-300 text-xs">
+                  <span class="text-pink-900 font-extrabold block mb-0.5">In our company:</span>
+                  <p id="card-context"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between items-center gap-3 mt-6">
+          <button onclick="prevCard()" class="bg-slate-100 hover:bg-slate-200 font-bold px-4 py-2.5 rounded-xl border border-slate-300 text-xs">⬅️ Previous</button>
+          <button onclick="shuffleCards()" class="bg-indigo-900 hover:bg-indigo-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs">🔀 Random Card</button>
+          <button onclick="nextCard()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs">Next ➡️</button>
+        </div>
+        <p class="text-[11px] text-slate-500 text-center mt-3">Team tip: one person reads the sentence, the others guess the meaning before flipping.</p>
+      </div>
+    </div>
+
+    <div id="vocab-sub-matching" class="hidden">
+      <div class="flex justify-between items-center mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+        <span class="text-xs font-bold">Click a <strong class="text-pink-900">Term</strong>, then its <strong class="text-indigo-700">Definition</strong>:</span>
+        <div class="flex items-center gap-3">
+          <span id="matching-score-badge" class="bg-indigo-600 text-white font-black text-xs px-3 py-1 rounded-full">Matched: 0 / 12</span>
+          <button onclick="resetMatchingGame()" class="text-xs bg-slate-200 hover:bg-slate-300 font-bold px-2.5 py-1 rounded-lg">🔄 Reset</button>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-2.5" id="match-terms-column"></div>
+        <div class="space-y-2.5" id="match-defs-column"></div>
+      </div>
+      <div id="matching-complete-banner" class="hidden bg-emerald-50 border-2 border-emerald-500 p-5 rounded-2xl mt-6 text-center card-slide">
+        <span class="text-4xl block mb-1">🎉</span>
+        <h3 class="text-xl font-extrabold text-emerald-800">Vocabulary Mastered!</h3>
+        <p class="text-xs text-emerald-800 mt-1">You matched all 12 terms. Ready for the True / False challenge!</p>
+        <button onclick="switchTab('truefalse')" class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2 rounded-xl text-xs">Go to True / False ➔</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 3 ============ -->
+<section id="tab-truefalse" class="hidden card-slide">
+  <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border-t-8 border-pink-500 mb-6">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+      <div>
+        <h2 class="text-2xl font-extrabold">✔️ Module 3: True / False</h2>
+        <p class="text-sm text-slate-600 mt-1">Discuss each statement as a team <em>first</em>, then click your answer.</p>
+      </div>
+      <div class="bg-indigo-950 text-white px-4 py-2 rounded-xl text-right">
+        <span class="text-[10px] uppercase font-bold text-pink-300 block">Team Score</span>
+        <span id="tf-score" class="font-mono text-lg font-black">0 / 8</span>
+      </div>
+    </div>
+    <div class="space-y-4" id="tf-statements-container"></div>
+    <div class="mt-8 pt-4 border-t border-slate-200 flex justify-between items-center">
+      <span class="text-xs text-slate-500">Ready for the real challenge?</span>
+      <button onclick="switchTab('simulation')" class="bg-pink-500 hover:bg-pink-600 text-white font-extrabold px-6 py-3 rounded-xl text-sm shadow-md">🚀 Start the Dilemma Game ➔</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAB 4 ============ -->
+<section id="tab-simulation" class="hidden">
+
+  <!-- Intro -->
+  <div id="screen-intro" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border-t-8 border-indigo-950 card-slide">
+    <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+      <div class="bg-pink-100 p-5 rounded-2xl border-2 border-pink-500 text-center flex-shrink-0">
+        <span class="text-5xl">🎨</span>
+        <span class="block text-xs font-black text-pink-900 mt-1 uppercase">PromoPop Studio</span>
+      </div>
+      <div>
+        <span class="bg-pink-100 text-pink-900 font-bold text-xs uppercase px-3 py-1 rounded-full">Team Game • 2 to 4 players</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold mt-2">Welcome to the PromoPop Creative Team!</h2>
+        <p class="text-slate-600 mt-2 text-sm md:text-base leading-relaxed">
+          You work in the marketing and design team at <strong>PromoPop Studio</strong>. We make branded merchandise (pens, mugs, tote bags, caps, keycard holders, coasters) for hotels, restaurants and cafés. Over the next weeks you will face <strong>12 difficult dilemmas</strong> with real clients.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-3 my-6 text-xs">
+      <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl"><strong>🤝 Client Trust</strong><br>Is the client happy and loyal?</div>
+      <div class="bg-violet-50 border border-violet-200 p-3 rounded-xl"><strong>🎨 Design Quality</strong><br>Is the final product great?</div>
+      <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl"><strong>💰 Profit</strong><br>Does the company make money?</div>
+      <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl"><strong>🌱 Ethics &amp; Planet</strong><br>Are we honest and responsible?</div>
+    </div>
+
+    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-xl mb-4 text-sm text-indigo-900">
+      <p class="font-bold mb-1">🎯 How to play</p>
+      <ol class="list-decimal ml-5 text-xs md:text-sm space-y-1">
+        <li>Read the dilemma together. Each role card shows a different point of view.</li>
+        <li>Discuss for 1-2 minutes (use the timer!). The "Speaks first" role starts.</li>
+        <li>Choose <strong>one answer as a team</strong>. Every choice has a good side <em>and</em> a bad side.</li>
+        <li>See how your 4 meters change. Then answer the discussion question.</li>
+      </ol>
+      <p class="text-xs mt-2">There is <strong>no perfect answer</strong>. The aim is to explain your reasons in English. Click highlighted words like <span class="vocab-term" onclick="openGlossaryTerm('proof')">proof</span> to see the meaning.</p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="beginGame()" class="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg text-base">🚀 Start the 12 Dilemmas</button>
+      <button onclick="confirmReset()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3.5 px-5 rounded-xl border border-slate-300 text-sm">🔄 Restart Fresh</button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="screen-main" class="hidden card-slide">
+    <div id="step-banner" class="bg-indigo-950 text-white p-4 rounded-2xl shadow-md mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-l-8 border-pink-500">
+      <div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="timeline-badge" class="bg-pink-500 text-white font-black text-xs px-2.5 py-0.5 rounded uppercase">DILEMMA 1 / 12</span>
+          <span id="phase-badge" class="text-xs font-semibold text-indigo-200 uppercase"></span>
+        </div>
+        <h2 id="question-title" class="text-xl font-extrabold mt-1"></h2>
+      </div>
+      <div class="flex items-center gap-2">
+        <div id="emergency-indicator" class="hidden"><span class="bg-red-600 text-white font-black text-xs px-3 py-1 rounded-full animate-pulse">🚨 URGENT</span></div>
+        <button id="timer-btn" onclick="startTimer()" class="bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-indigo-600">⏱️ Start discussion timer</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-4 border border-slate-200" id="scenario-card">
+      <p id="question-text" class="text-base md:text-lg leading-relaxed"></p>
+    </div>
+
+    <!-- Role cards -->
+    <div class="mb-5">
+      <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">👥 Different points of view <span id="speaks-first" class="ml-2 normal-case bg-pink-100 text-pink-900 px-2 py-0.5 rounded-full"></span></div>
+      <div class="grid sm:grid-cols-2 gap-2" id="role-cards"></div>
+    </div>
+
+    <div class="text-xs font-bold text-slate-600 mb-2">🤔 What does your team decide? Discuss first, then click ONE option:</div>
+    <div class="space-y-3 mb-6" id="options-grid"></div>
+
+    <div id="result-feedback" class="hidden bg-white rounded-2xl p-6 shadow-lg border-l-8 border-indigo-400 mb-6">
+      <div class="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Result of your decision</div>
+      <p id="feedback-msg" class="text-slate-800 text-sm md:text-base leading-relaxed"></p>
+      <div id="fx-chips" class="flex flex-wrap gap-2 mt-3"></div>
+
+      <div class="bg-pink-50 border border-pink-200 rounded-xl p-4 mt-4">
+        <div class="text-xs font-extrabold text-pink-900 uppercase mb-1">💬 Team discussion</div>
+        <p id="discussion-q" class="text-sm font-semibold text-slate-800"></p>
+      </div>
+
+      <details class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <summary class="text-xs font-bold cursor-pointer text-slate-700">🔍 What if we had chosen differently? (Click to see)</summary>
+        <div id="other-options" class="mt-3 space-y-2 text-xs"></div>
+      </details>
+    </div>
+
+    <div id="nav-action-bar" class="hidden flex justify-end">
+      <button id="next-step-btn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 px-8 rounded-xl shadow-lg text-base">Next Dilemma ➔</button>
+    </div>
+  </div>
+
+  <!-- End -->
+  <div id="screen-end" class="hidden card-slide">
+    <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border-t-8 border-emerald-500">
+      <div class="text-center max-w-xl mx-auto">
+        <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-pink-500"><span class="text-3xl">🏆</span></div>
+        <h2 class="text-2xl md:text-3xl font-extrabold">Team Performance Review</h2>
+        <p class="text-slate-600 text-sm mt-1">Every team has a different style. Here is yours!</p>
+
+        <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5 my-6 text-left space-y-3" id="final-meters"></div>
+
+        <div id="evaluation-box" class="p-6 rounded-2xl mb-6 text-left shadow-sm border-2 border-indigo-300 bg-indigo-50"></div>
+
+        <div class="bg-slate-50 rounded-xl p-4 text-left border border-slate-200 mb-6">
+          <h4 class="font-bold text-sm mb-2">💬 Final reflection questions for your team</h4>
+          <ul class="list-disc ml-5 text-xs text-slate-700 space-y-1">
+            <li>Which dilemma was the most difficult? Why?</li>
+            <li>Where did your team disagree most? How did you decide?</li>
+            <li>Which meter was hardest to protect? Why?</li>
+            <li>Would a real client agree with your choices?</li>
+          </ul>
+        </div>
+
+        <button onclick="clearSaveAndRestart()" class="w-full bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg">🔄 Play Again and Try Different Choices</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="bg-indigo-50 border-t border-indigo-100 py-4 text-center text-xs text-slate-500">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+    <span class="font-medium">© PromoPop Studio • Marketing &amp; Design English Learning App</span>
+    <span>Target level: Low B1 • Team size: 2-4</span>
+  </div>
+</footer>
+
+<!-- Glossary modal -->
+<div id="glossary-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-white rounded-2xl max-w-2xl w-full p-6 max-h-[85vh] flex flex-col shadow-2xl card-slide">
+    <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+      <h3 class="text-xl font-extrabold">📖 Industry Glossary (B1 Level)</h3>
+      <button onclick="toggleGlossaryModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold px-2">&times;</button>
+    </div>
+    <div class="overflow-y-auto py-4 space-y-3 text-sm flex-grow pr-1" id="glossary-list"></div>
+    <div class="pt-3 border-t border-slate-200 text-right">
+      <button onclick="toggleGlossaryModal()" class="bg-indigo-950 hover:bg-indigo-900 text-white font-bold px-5 py-2 rounded-lg text-xs">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reset modal -->
+<div id="reset-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl border-t-4 border-pink-500">
+    <h3 class="text-lg font-bold">Restart the game?</h3>
+    <p class="text-xs text-slate-600 mt-2">Your team progress and meters will be reset.</p>
+    <div class="flex gap-2 mt-5">
+      <button onclick="clearSaveAndRestart()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 rounded-lg text-xs">Yes, restart</button>
+      <button onclick="closeResetModal()" class="w-full bg-slate-200 hover:bg-slate-300 font-semibold py-2 rounded-lg text-xs">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== VOCABULARY (12) ===================== */
+const flashcardsData = [
+  { id:1, key:"brief", term:"Brief", pos:"noun", phonetic:"/briːf/",
+    sentence:"The client's brief was only two lines long.",
+    definition:"A document where the client explains what they want, for example the goal, budget and deadline.",
+    context:"A clear brief helps our designers start the right idea on the first day." },
+  { id:2, key:"brand guidelines", term:"Brand Guidelines", pos:"noun", phonetic:"/brænd ˈɡaɪdlaɪnz/",
+    sentence:"According to the brand guidelines, the logo must always be on a white background.",
+    definition:"Rules about how a company uses its logo, colours and fonts.",
+    context:"We check the brand guidelines before we design any mug or tote bag." },
+  { id:3, key:"mockup", term:"Mockup", pos:"noun", phonetic:"/ˈmɒkʌp/",
+    sentence:"I will send you a mockup of the cap before we make it.",
+    definition:"A picture or model that shows how a design will look on the real product.",
+    context:"A mockup helps the client imagine the finished tote bag." },
+  { id:4, key:"proof", term:"Proof", pos:"noun", phonetic:"/pruːf/",
+    sentence:"Please check the proof carefully and sign it.",
+    definition:"The final sample or file that the client must check and approve before printing starts.",
+    context:"After the client signs the proof, we start production." },
+  { id:5, key:"vector file", term:"Vector File", pos:"noun", phonetic:"/ˈvɛktə faɪl/",
+    sentence:"Please send your logo as a vector file, not a small JPEG.",
+    definition:"A logo or drawing file (for example .AI, .SVG, .EPS) that stays sharp at any size.",
+    context:"We need vector files for embroidery and large printing." },
+  { id:6, key:"print run", term:"Print Run", pos:"noun", phonetic:"/prɪnt rʌn/",
+    sentence:"The first print run is 2,000 mugs.",
+    definition:"The number of items made in one production round.",
+    context:"A bigger print run usually makes each item cheaper." },
+  { id:7, key:"minimum order", term:"Minimum Order (MOQ)", pos:"noun", phonetic:"/ˈmɪnɪməm ˈɔːdə/",
+    sentence:"The minimum order for these caps is 500 pieces.",
+    definition:"The smallest number of items a client can buy in one order.",
+    context:"A small café may find our minimum order too high." },
+  { id:8, key:"lead time", term:"Lead Time", pos:"noun", phonetic:"/liːd taɪm/",
+    sentence:"The normal lead time for custom pens is three weeks.",
+    definition:"The time between the order and the delivery of the finished products.",
+    context:"A short lead time can mean extra costs for rush production." },
+  { id:9, key:"colour match", term:"Colour Match", pos:"noun / verb", phonetic:"/ˈkʌlə mætʃ/",
+    sentence:"It is hard to colour match orange on a cotton bag and on paper.",
+    definition:"Making the printed colour look the same as the brand colour (for example with a Pantone code).",
+    context:"Clients are often unhappy when their brand colour looks different on a product." },
+  { id:10, key:"giveaway", term:"Giveaway", pos:"noun", phonetic:"/ˈɡɪvəweɪ/",
+    sentence:"The hotel left a branded giveaway on every pillow.",
+    definition:"A free product with a logo that a business gives to customers. Also called swag or freebie.",
+    context:"A useful giveaway keeps the hotel name in the guest's life for months." },
+  { id:11, key:"bleed", term:"Bleed", pos:"noun", phonetic:"/bliːd/",
+    sentence:"Please add 3 mm of bleed around the artwork.",
+    definition:"Extra design area outside the cutting line, so there are no white edges after cutting.",
+    context:"If the file has no bleed, the printer may not accept it." },
+  { id:12, key:"greenwashing", term:"Greenwashing", pos:"noun", phonetic:"/ˈɡriːnwɒʃɪŋ/",
+    sentence:"Calling a plastic pen 'eco' is greenwashing.",
+    definition:"Making a product look more eco-friendly than it really is.",
+    context:"Greenwashing can destroy a hotel's reputation if guests find out." }
+];
+
+/* ===================== TRUE / FALSE (8) ===================== */
+const trueFalseData = [
+  { id:1, statement:"A mockup shows the client how a design will look on the real product.", isTrue:true,
+    explanation:"True! A mockup helps clients imagine the final product before we make it." },
+  { id:2, statement:"'Bleed' is empty space inside the design where you must not put any text.", isTrue:false,
+    explanation:"False! Bleed is extra design area OUTSIDE the cutting line. The empty space inside is called a margin." },
+  { id:3, statement:"A vector file can become very big without becoming blurry.", isTrue:true,
+    explanation:"True! Vector files are made from shapes and lines, so they stay sharp at any size." },
+  { id:4, statement:"A 'minimum order' is the largest number of items a client is allowed to buy.", isTrue:false,
+    explanation:"False! A minimum order (MOQ) is the SMALLEST number of items you can order." },
+  { id:5, statement:"After a client signs the proof, nobody needs to check the spelling again.", isTrue:false,
+    explanation:"False! Clients and designers can both miss mistakes. A final check by our team protects everyone." },
+  { id:6, statement:"Greenwashing means making a product look more eco-friendly than it really is.", isTrue:true,
+    explanation:"True! It is a form of misleading marketing and it can damage trust." },
+  { id:7, statement:"Brand guidelines tell designers which logo, colours and fonts they can use.", isTrue:true,
+    explanation:"True! They keep the brand looking the same on every product." },
+  { id:8, statement:"A brand colour always looks exactly the same on paper, cotton and plastic.", isTrue:false,
+    explanation:"False! Material changes how colour looks. This is why we show samples and do a colour match." }
+];
+
+/* ===================== ROLES ===================== */
+const roles = [
+  { key:"art",  icon:"🎨", name:"Art Director",            focus:"Beautiful design and brand image" },
+  { key:"acct", icon:"🤝", name:"Account Manager",         focus:"Client relationship and money" },
+  { key:"prod", icon:"🏭", name:"Production Manager",      focus:"Time, cost and what is possible to make" },
+  { key:"eco",  icon:"🌱", name:"Ethics & Eco Lead",       focus:"Honesty, people and planet" }
+];
+const roleSplits = {
+  2:[["art","eco"],["acct","prod"]],
+  3:[["art"],["acct","eco"],["prod"]],
+  4:[["art"],["acct"],["prod"],["eco"]]
+};
+let playerCount = 3;
+
+/* ===================== METERS ===================== */
+const meterDefs = [
+  { id:"client",  icon:"🤝", label:"Client Trust",   bar:"bg-rose-400" },
+  { id:"quality", icon:"🎨", label:"Design Quality", bar:"bg-violet-400" },
+  { id:"profit",  icon:"💰", label:"Profit",         bar:"bg-amber-400" },
+  { id:"eco",     icon:"🌱", label:"Ethics & Planet",bar:"bg-emerald-400" }
+];
+let meters = { client:5, quality:5, profit:5, eco:5 };
+
+/* helper for glossary words inside scenario text */
+function v(key, label){ return `<span class='vocab-term' onclick="openGlossaryTerm('${key}')">${label}</span>`; }
+
+/* ===================== 12 DILEMMAS ===================== */
+/* fx order: [client, quality, profit, eco] */
+const dilemmas = [
+{
+  title:"The Empty Brief", phase:"Start of the project", seconds:120,
+  text:`A new beach hotel wants "something fun and modern" for its guests. The ${v('brief','brief')} is only two lines long. There is no budget, no target guest and the deadline is two weeks. Your boss expects ideas by Friday.`,
+  views:{ art:"I cannot be creative without direction. A bad brief means a bad result.", acct:"The client is busy. If I ask too many questions, they may think we are slow.", prod:"Without a budget I do not know which materials or quantities to plan.", eco:"A beach hotel may care about nature. Should that be in the idea?" },
+  choices:[
+    { t:"Book a call and ask 10 clear questions about guests, budget and brand before you design anything.", fx:[0,2,0,0], fb:"You get a strong, clear direction. The client says, 'Good questions, we had not thought about that!' But the project starts three days later." },
+    { t:"Make three quick ideas today and let the client choose the one they like.", fx:[1,0,-1,0], fb:"The client likes the speed and picks one. But you spent unpaid time on two ideas that nobody will use." },
+    { t:"Reuse last year's design from another hotel and only change the colours.", fx:[-1,-1,2,0], fb:"It is fast and cheap. But the client notices the design looks 'familiar' and feels it is not special." },
+    { t:"Wait. Tell the client you cannot start until they send a better brief.", fx:[-2,0,0,0], fb:"You protect your time, but the client feels you are not helpful. The deadline gets closer and closer." }
+  ],
+  disc:"Is it the designer's job to fix a bad brief? How many questions are too many for a busy client?"
+},
+{
+  title:"The Blurry Logo", phase:"Artwork preparation", seconds:90,
+  text:`A restaurant ordered 3,000 embroidered caps. For the logo, they sent a small, blurry picture from their website. You need a ${v('vector file','vector file')} for good embroidery. The client says: "That is our logo, just use it!"`,
+  views:{ art:"A blurry logo on a cap looks cheap. It makes our work look bad too.", acct:"The client already seems impatient. I do not want to start an argument.", prod:"The embroidery machine cannot 'read' a blurry picture. The stitching will be messy.", eco:"If the caps look bad, the client may throw them away. That is waste." },
+  choices:[
+    { t:"Politely explain the problem, ask for a proper vector file and wait up to 3 days.", fx:[0,2,0,0], fb:"The client sends the file after a reminder. The caps look sharp and professional, but the schedule is tight now." },
+    { t:"Redraw the logo yourself for free. It takes about 4 hours.", fx:[1,1,-1,0], fb:"The client is happy and surprised. But your team lost half a day, and the client expects free favours next time." },
+    { t:"Redraw the logo and add a small fee. Ask the client to approve the new version first.", fx:[0,1,1,0], fb:"The client agrees after a short discussion. Your costs are covered and the logo is approved, but the client mentions the fee to their boss." },
+    { t:"Print the logo as it is. The client sent it, so it is their responsibility.", fx:[-2,-2,1,0], fb:"The caps arrive with fuzzy, unclear stitching. The client is angry, even though they sent the file." }
+  ],
+  disc:"Who is responsible when a client sends a bad file: the client or the studio? How do you say 'no' politely?"
+},
+{
+  title:"The Colour Problem", phase:"Sample stage", seconds:120,
+  text:`The restaurant's brand colour is bright orange. On the recycled paper bags, the orange looks dull and brownish. The client wants a perfect ${v('colour match','colour match')}. The only way to get bright orange is to use white plastic-coated bags.`,
+  views:{ art:"Dull orange makes the brand look old. The colour is the brand!", acct:"The client signed off the colour code, so they expect exactly that colour.", prod:"A different ink may help, but it costs more and we must test it.", eco:"The restaurant says it loves nature. Plastic bags do not fit that message." },
+  choices:[
+    { t:"Show the client a real sample on recycled paper and offer a slightly different ink. Ask for approval.", fx:[1,1,-1,1], fb:"The client sees the real result and chooses a compromise colour. It takes extra time and ink testing costs money, but everyone is honest." },
+    { t:"Change to white plastic-coated bags. The orange looks perfect!", fx:[0,2,0,-2], fb:"The colour is perfect, but the client later gets criticism online for using plastic. The Ethics & Planet meter drops." },
+    { t:"Print on recycled paper and tell the client that colours can look different on different materials.", fx:[-1,-1,1,0], fb:"This is true, but the client feels you are making excuses. They expected a solution, not a lecture." },
+    { t:"Ask the client what matters more: the exact colour or the recycled material, and let them choose.", fx:[1,0,0,1], fb:"The client appreciates being part of the decision. But they say, 'You are the experts. Why can't you tell us?'" }
+  ],
+  disc:"When should a designer decide, and when should the client decide? Is an exact brand colour more important than eco materials?"
+},
+{
+  title:"Cheap Plastic Pens", phase:"Product choice", seconds:120,
+  text:`A hotel chain wants 5,000 cheap plastic pens with its logo for the front desk. The hotel's own advertising says: "We care about the planet." You can offer bamboo pens (40% more expensive) or recycled-plastic pens (15% more expensive). The client says budget is tight. Think about ${v('greenwashing','greenwashing')}.`,
+  views:{ art:"Bamboo pens look more premium and fit a luxury hotel image.", acct:"If I push the expensive option, the client may choose a competitor.", prod:"Plastic pens are in stock now. Bamboo pens need three extra weeks.", eco:"Plastic pens plus 'green' advertising is a big risk. Guests notice this." },
+  choices:[
+    { t:"Sell exactly what the client asked for: 5,000 cheap plastic pens.", fx:[0,0,2,-2], fb:"The client is happy with the price and you make good profit. But a guest later posts online about 'plastic pens from a green hotel'." },
+    { t:"Recommend bamboo pens and explain how they support the hotel's eco message.", fx:[-1,1,0,2], fb:"The client likes the idea but the price shocks them. They order only 2,000 pens instead of 5,000." },
+    { t:"Offer recycled-plastic pens as a middle option with a small price increase.", fx:[0,0,0,1], fb:"A reasonable compromise! The client accepts, though the pens look a little less beautiful than bamboo." },
+    { t:"Sell the cheap plastic pens but print 'Please recycle me' and a green leaf on them.", fx:[0,0,1,-1], fb:"The client loves the green leaf. But now the pen suggests something that is not really true. This could be greenwashing." }
+  ],
+  disc:"Where is the line between 'good marketing' and greenwashing? Should we refuse a job that does not fit the client's own values?"
+},
+{
+  title:"'Make It Look Like Theirs'", phase:"Creative direction", seconds:120,
+  text:`A small café wants a tote bag that looks "exactly like" a famous international coffee brand's bag, with the same style, shape and colours. They only want to change the name. The client says: "Everybody does it. Nobody will care."`,
+  views:{ art:"Copying kills creativity. I became a designer to make original work.", acct:"The client is paying. If we refuse, they will go to another studio.", prod:"The design is simple and easy to produce. No technical problem.", eco:"Copying a brand can mislead customers. It is not honest." },
+  choices:[
+    { t:"Refuse politely, explain the legal and reputation risk, and offer a completely original idea in a similar mood.", fx:[-1,1,-1,2], fb:"The client is annoyed at first but later says they respect your honesty. You lose some time and maybe some profit." },
+    { t:"Make it exactly as the client wants. It is their business and their risk.", fx:[1,-1,1,-2], fb:"The client is happy. But three months later, the famous brand's lawyers send a letter to the café, and the café blames your studio." },
+    { t:"Change only a few small details so it is 'not exactly the same'.", fx:[0,-1,1,-1], fb:"The bag is still too close to the original. You are in a grey area, and your design team is not proud of it." },
+    { t:"Show the client a mood board of the same trend and design something 'inspired by', but original.", fx:[0,1,0,1], fb:"The client likes the fresh idea after some discussion. It needs more design time but creates a unique bag." }
+  ],
+  disc:"What is the difference between 'inspired by' and 'copied from'? Who is responsible if a client asks for something illegal?"
+},
+{
+  title:"The Spelling Mistake", phase:"Production", seconds:90, emergency:true,
+  text:`🚨 <strong>URGENT!</strong> Production of 2,000 mugs has just finished. Then you see the text on the mug says <strong>"WELLCOME to our hotel"</strong>. The client signed the ${v('proof','proof')} last week, and nobody saw the mistake, including your own team. The delivery truck leaves tomorrow morning. The client has not noticed.`,
+  views:{ art:"I checked the design but not the text. I feel terrible. It is a team mistake.", acct:"The proof is signed. Legally, the client approved it, but the relationship is more important.", prod:"A full reprint costs a lot, and it takes at least one week.", eco:"2,000 mugs in the bin is a lot of waste. And hiding the mistake is dishonest." },
+  choices:[
+    { t:"Call the client today, admit that your team also missed it, and propose a reprint with the cost shared 50/50.", fx:[1,1,-1,1], fb:"The client is surprised by your honesty. They accept the shared cost and the trust between you becomes stronger, even if it costs you money." },
+    { t:"Say nothing, deliver the mugs and hope nobody notices.", fx:[-2,-2,1,-2], fb:"A guest photographs the mug and shares it online. The client finds out, and also finds out you knew. A very serious loss of trust." },
+    { t:"Remind the client that they signed the proof, so they must pay for any reprint.", fx:[-2,0,1,-1], fb:"Legally you may be right, but the client says they will never work with you again. You win the argument but lose the client." },
+    { t:"Reprint the mugs quietly at your own cost and tell the client later it was a 'production delay'.", fx:[1,1,-2,0], fb:"The client is happy with the final result, but you paid a lot, and you were not completely honest about the reason for the delay." }
+  ],
+  disc:"Who is responsible for the mistake: the client who signed, or the team who did not check? Is it ever okay to hide a problem?"
+},
+{
+  title:"The Five-Day Rush", phase:"Planning", seconds:120, emergency:true,
+  text:`🚨 <strong>URGENT!</strong> A hotel opens in 5 days. They suddenly need 1,500 keycard holders with their logo. The normal ${v('lead time','lead time')} is three weeks. The client says: "We will pay whatever it takes. Please save our opening!" Your production team is already very busy.`,
+  views:{ art:"A rush job means no time for design tests. I am worried about quality.", acct:"A rush order is a chance to impress a big client, and charge extra.", prod:"We can do it only if the team works all weekend and we use air freight.", eco:"Air freight and weekend work are bad for the planet and for our team." },
+  choices:[
+    { t:"Accept the rush. Charge double, use air freight and ask the team to work the weekend.", fx:[1,0,1,-1], fb:"The hotel opens with perfect keycard holders. You earn extra money, but your team is exhausted and air freight creates a lot of pollution." },
+    { t:"Offer a smaller first delivery of 300 holders in 5 days and send the other 1,200 later by normal transport.", fx:[1,0,0,1], fb:"The hotel can open with a good start. They are not 100% happy, but they trust your honest plan." },
+    { t:"Offer stock keycard holders in plain colours with a simple logo sticker as a quick solution.", fx:[0,-1,1,0], fb:"They are ready on time, but the quality is average. The hotel feels it is not very special." },
+    { t:"Say honestly that it is impossible and suggest they use plain cards for the opening.", fx:[-1,0,0,0], fb:"The client appreciates honesty but is disappointed. They remember that you did not try to help." }
+  ],
+  disc:"When is it right to say 'we cannot do this'? How much should we sacrifice (team, planet, quality) to save a client?"
+},
+{
+  title:"Revision Number Nine", phase:"Design review", seconds:90,
+  text:`Your contract includes three rounds of changes. It is Friday at 6 PM, and the client sends revision number NINE for a coaster design: "Can we move the logo 2 mm to the left? And make the blue a little bit bluer?" You already spent far more hours than planned.`,
+  views:{ art:"Maybe the client is nervous, not difficult. Perhaps the real problem is different.", acct:"The client is important. I do not want to ruin a long relationship over 2 mm.", prod:"Every change costs time and money. The free revisions are long finished.", eco:"Endless revisions are a stressful way to work. Our team's wellbeing matters too." },
+  choices:[
+    { t:"Do the change for free. The client is important and it is only small.", fx:[1,0,-2,0], fb:"The client is happy for now. But they learn that 'extra changes are free', and revision ten arrives on Monday." },
+    { t:"Politely explain that changes 4 to 9 are extra, and attach the price list.", fx:[-1,0,1,0], fb:"The client is surprised but understands the contract. Your profit is protected, but the mood is a bit cold." },
+    { t:"Arrange a short meeting. Look at the original goal together and ask: 'What are we trying to fix?'", fx:[1,1,0,0], fb:"You discover the client's boss does not like the colour. After the meeting, the real problem is solved in one change." },
+    { t:"Do not answer until Monday morning. You deserve a weekend.", fx:[-1,0,0,0], fb:"You rest, but the client sends three angry emails over the weekend and calls your boss." }
+  ],
+  disc:"How do you protect your free time and still keep the client happy? Is a difficult client always a bad client?"
+},
+{
+  title:"10,000 Keyrings", phase:"Product strategy", seconds:120,
+  text:`A busy bar wants 10,000 cheap plastic keyrings with its logo to give to every customer. Your own research shows that most people throw away this type of ${v('giveaway','giveaway')} within a week. You could suggest a more useful (and more expensive) item, but the client's budget is already small.`,
+  views:{ art:"I would love to design something people really want to keep and show.", acct:"This is a big order. I do not want to lose it by arguing about what is 'useful'.", prod:"Keyrings are easy, quick and cheap to make. Nothing can go wrong.", eco:"10,000 items that become rubbish in a week is a serious waste." },
+  choices:[
+    { t:"Make the order exactly as requested. The client knows their customers.", fx:[0,-1,2,-2], fb:"The order is easy and profitable. A few weeks later, the bar owner finds keyrings on the pavement outside the bar." },
+    { t:"Suggest a smaller order of 2,000 useful items (like reusable cups) for the same budget.", fx:[0,1,-1,2], fb:"The client likes the idea but is nervous about handing out fewer items. They agree, but you sell less." },
+    { t:"Keep the keyrings but add a QR code that gives a free drink, so people keep the item.", fx:[1,1,1,-1], fb:"Clever! People keep the keyring to get the offer, and the client sees more customers. But it is still plastic." },
+    { t:"Refuse the job. You do not want your studio to make products that end up as rubbish.", fx:[-2,0,-2,1], fb:"You keep your values, but the client goes to another studio who makes the keyrings immediately. Nothing changes for the planet." }
+  ],
+  disc:"Is it our job to tell clients what they need? What makes a freebie 'good'? Can small plastic items ever be justified?"
+},
+{
+  title:"Guest Photos on Coasters", phase:"Campaign idea", seconds:120,
+  text:`A restaurant loves the idea of printing real photos from its guests' Instagram on posters and coasters. Some photos show children. The restaurant says: "The photos are public, so we can use them." Nobody has asked the guests for permission.`,
+  views:{ art:"Real photos look warm and authentic. Stock photos feel fake.", acct:"The client is excited about this idea. A 'no' will disappoint them.", prod:"A permission process will delay printing by at least one week.", eco:"Photos of children without permission is a serious privacy question." },
+  choices:[
+    { t:"Print the photos. They are already public online, so there is no problem.", fx:[1,0,1,-2], fb:"A parent sees their child's face on a coaster and complains publicly. The restaurant is embarrassed and blames your studio." },
+    { t:"Contact each person and ask for written permission. It will delay the project by one week.", fx:[-1,0,-1,2], fb:"Most people agree happily and some are even excited. The restaurant is nervous about the delay, but the result is safe." },
+    { t:"Use illustrations and stock photos instead of real guest photos.", fx:[0,1,0,1], fb:"The risk is gone and the design looks professional. But the 'real guest' idea, which the client loved, is lost." },
+    { t:"Create a photo contest where guests agree to the rules and photos are used with permission.", fx:[1,1,-1,1], fb:"Guests are proud to take part and the campaign gets extra attention on social media. It takes more planning and costs a little extra." }
+  ],
+  disc:"Is something 'public' on the internet free to use? How do we protect people's privacy, especially children's?"
+},
+{
+  title:"The Impossible Promise", phase:"Internal conflict", seconds:120,
+  text:`A sales colleague promised a hotel client that their very detailed logo, with tiny 2 mm letters, will be embroidered perfectly on 800 polo shirts. As the designer, you know this is not possible. The client is excited and has already told their boss. Your colleague says: "Please just make it work. I need this sale."`,
+  views:{ art:"A tiny, unreadable logo makes the hotel's brand look cheap.", acct:"The relationship with my own colleague matters too. I do not want a fight.", prod:"The machine cannot sew letters this small. I know it will fail.", eco:"It is honest to tell the client the truth. A promise we cannot keep is a lie." },
+  choices:[
+    { t:"Tell the client directly, offer a simplified logo for embroidery, and then talk to your colleague privately.", fx:[0,1,0,1], fb:"The client appreciates honesty and the simplified logo looks great. Your colleague is angry that you contacted the client first." },
+    { t:"Try it anyway and hope that it works.", fx:[-1,-2,0,0], fb:"The letters become a messy blur. 800 polo shirts look bad, and the hotel feels deceived." },
+    { t:"Ask your colleague to call the client and fix their own mistake.", fx:[-1,0,0,0], fb:"This is fair, but the client hears the message too late and the colleague feels abandoned by the team." },
+    { t:"Offer a printed or woven patch to keep the tiny detail. It costs a bit more.", fx:[1,1,-1,0], fb:"The detail is kept and looks sharp, so the client is happy. But the extra cost reduces your profit, and your colleague says nothing." }
+  ],
+  disc:"How do you handle a colleague's mistake without damaging your relationship? When should you speak directly to the client?"
+},
+{
+  title:"The Cheaper Factory", phase:"Supplier decision", seconds:120,
+  text:`A big restaurant client demands a lower price on 8,000 tote bags. A new supplier offers the same bags 30% cheaper. But the factory gives no information about working conditions or materials. Your current supplier has a good record but will not reduce the price. If you lose the client, the studio loses an important account.`,
+  views:{ art:"I only care that the bag looks good, but I do care how it is made too.", acct:"This client brings 20% of our yearly sales. I cannot lose them.", prod:"A new supplier means risk: quality, delays, surprises.", eco:"Cheap prices often come from bad conditions for workers. I need proof first." },
+  choices:[
+    { t:"Switch to the cheaper supplier immediately and give the client the lower price.", fx:[1,0,2,-2], fb:"Price and profit improve. Six months later, a news story about the factory's working conditions appears. It is a big scandal." },
+    { t:"Keep your supplier and tell the client the higher price is the price of good quality.", fx:[-1,0,1,1], fb:"You stay consistent with your values, but the client is not happy, and starts asking other studios for quotes." },
+    { t:"Ask your current supplier for a bigger yearly agreement and a better price in exchange.", fx:[0,0,0,1], fb:"The supplier offers a small discount in return for more orders. It is not the full 30%, but it is a safe and honest solution." },
+    { t:"Test the new supplier, but ask for a social audit certificate first. It takes two weeks.", fx:[0,0,1,1], fb:"The factory provides a certificate and you start with a small test order. The decision is slower, but safer." }
+  ],
+  disc:"Is it our responsibility how our products are made? Would you accept a lower salary to keep an honest supplier?"
+}
+];
+
+/* ===================== EVALUATION ===================== */
+const profileTitles = {
+  client:  { title:"The Relationship Builders", desc:"Your team put the client first. Clients feel heard and supported, and they will probably come back. Be careful that friendliness does not become free work or too many promises." },
+  quality: { title:"The Creative Perfectionists", desc:"Your team protected design quality in almost every decision. The products look great and the studio's portfolio will shine. Remember to check the budget and the client's real needs too." },
+  profit:  { title:"The Business Brains", desc:"Your team kept the studio healthy and profitable. That is essential for a company to survive. Check whether some decisions put trust, creativity or honesty at risk for the future." },
+  eco:     { title:"The Responsible Designers", desc:"Your team put honesty, people and planet first. This builds a strong reputation for the long term. Think about how to explain your values to clients who only see the price." },
+  balanced:{ title:"The Balanced Studio Leaders", desc:"Excellent! Your team found a good balance between clients, design, money and responsibility. This is the hardest thing in the industry. Good communication in English helped you to explain your reasons." }
+};
+
+/* ===================== STATE ===================== */
+let currentIdx = 0;
+let soundEnabled = true;
+let hasAnswered = false;
+let currentCardIndex = 0;
+let isCardFlipped = false;
+let selectedTermObj = null, selectedDefObj = null, matchedCount = 0;
+let shuffledTermsList = [], shuffledDefsList = [];
+let tfUserAnswers = {};
+let timerInterval = null;
+
+/* ===================== UTILS ===================== */
+function playAudioFeedback(type){
+  if(!soundEnabled) return;
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    if(type==='success'){
+      osc.frequency.setValueAtTime(523.25,ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(659.25,ctx.currentTime+.15);
+      gain.gain.setValueAtTime(.12,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.01,ctx.currentTime+.25);
+      osc.start(); osc.stop(ctx.currentTime+.25);
+    } else if(type==='error'){
+      osc.type='sawtooth'; osc.frequency.setValueAtTime(220,ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(110,ctx.currentTime+.2);
+      gain.gain.setValueAtTime(.12,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.01,ctx.currentTime+.2);
+      osc.start(); osc.stop(ctx.currentTime+.2);
+    } else if(type==='emergency'){
+      osc.type='square'; osc.frequency.setValueAtTime(880,ctx.currentTime);
+      osc.frequency.linearRampToValueAtTime(440,ctx.currentTime+.3);
+      gain.gain.setValueAtTime(.15,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.01,ctx.currentTime+.3);
+      osc.start(); osc.stop(ctx.currentTime+.3);
+    } else if(type==='beep'){
+      osc.frequency.setValueAtTime(700,ctx.currentTime);
+      gain.gain.setValueAtTime(.12,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.01,ctx.currentTime+.5);
+      osc.start(); osc.stop(ctx.currentTime+.5);
+    }
+  }catch(e){}
+}
+function toggleSound(){ soundEnabled=!soundEnabled; document.getElementById('sound-btn').innerText = soundEnabled?'🔊':'🔇'; }
+function shuffle(a){ const arr=[...a]; for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function clamp(n){ return Math.max(0,Math.min(10,n)); }
+
+/* ===================== TABS ===================== */
+const activeTabCls = "tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold bg-pink-500 text-white shadow";
+const idleTabCls   = "tab-btn px-3.5 py-2 rounded-t-lg text-xs md:text-sm font-bold text-indigo-200 hover:bg-indigo-900";
+function switchTab(id){
+  ['discussion','vocabulary','truefalse','simulation'].forEach(t=>document.getElementById('tab-'+t).classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.className=idleTabCls);
+  document.getElementById('tab-'+id).classList.remove('hidden');
+  document.getElementById('tab-btn-'+id).className = activeTabCls;
+  if(id==='vocabulary') renderFlashcard();
+  if(id==='truefalse') renderTrueFalse();
+}
+
+/* ===================== TAB 1: TEAM SETUP & NOTES ===================== */
+function setupDiscussionNotes(){
+  const area=document.getElementById('discussion-notes');
+  const saved=localStorage.getItem('promoNotes'); if(saved) area.value=saved;
+  area.addEventListener('input',()=>localStorage.setItem('promoNotes',area.value));
+}
+function renderPlayerSetup(){
+  const pb=document.getElementById('player-buttons'); pb.innerHTML="";
+  [2,3,4].forEach(n=>{
+    const b=document.createElement('button');
+    b.className = "px-4 py-2 rounded-lg text-xs font-extrabold border-2 " + (n===playerCount ? "bg-pink-500 border-pink-300 text-white":"bg-indigo-900 border-indigo-700 text-indigo-100 hover:border-pink-400");
+    b.innerText = n+" players";
+    b.onclick=()=>{ playerCount=n; localStorage.setItem('promoPlayers',n); renderPlayerSetup(); };
+    pb.appendChild(b);
+  });
+  const ra=document.getElementById('role-assignment'); ra.innerHTML="";
+  roleSplits[playerCount].forEach((group,i)=>{
+    const div=document.createElement('div');
+    div.className="bg-indigo-900 border border-indigo-700 rounded-xl p-3";
+    div.innerHTML = `<div class="text-[11px] font-extrabold text-pink-300 uppercase mb-1">Player ${i+1}</div>` +
+      group.map(k=>{const r=roles.find(x=>x.key===k); return `<div class="text-sm"><strong>${r.icon} ${r.name}</strong><br><span class="text-xs text-indigo-300">${r.focus}</span></div>`;}).join("<div class='h-1.5'></div>");
+    ra.appendChild(div);
+  });
+  if(!document.getElementById('screen-main').classList.contains('hidden') && !hasAnswered) renderRoleCards();
+}
+
+/* ===================== TAB 2: FLASHCARDS ===================== */
+function setVocabSubTab(mode){
+  const f=document.getElementById('vocab-sub-flashcards'), m=document.getElementById('vocab-sub-matching');
+  const bf=document.getElementById('sub-btn-flashcards'), bm=document.getElementById('sub-btn-matching');
+  const on="px-4 py-1.5 rounded-lg text-xs font-extrabold bg-white shadow", off="px-4 py-1.5 rounded-lg text-xs font-extrabold text-slate-600";
+  if(mode==='flashcards'){ f.classList.remove('hidden'); m.classList.add('hidden'); bf.className=on; bm.className=off; renderFlashcard(); }
+  else { f.classList.add('hidden'); m.classList.remove('hidden'); bm.className=on; bf.className=off; initMatchingGame(); }
+}
+function renderFlashcard(){
+  const d=flashcardsData[currentCardIndex];
+  document.getElementById('flashcard-element').classList.remove('flipped'); isCardFlipped=false;
+  document.getElementById('card-term').innerText=d.term;
+  document.getElementById('card-pos').innerText=d.pos;
+  document.getElementById('card-phonetic').innerText=d.phonetic;
+  document.getElementById('card-sentence').innerText=`"${d.sentence}"`;
+  document.getElementById('card-back-term').innerText=d.term;
+  document.getElementById('card-definition').innerText=d.definition;
+  document.getElementById('card-context').innerText=d.context;
+  document.getElementById('flashcard-counter').innerText=`Card ${currentCardIndex+1} of ${flashcardsData.length}`;
+}
+function flipCurrentCard(){ isCardFlipped=!isCardFlipped; document.getElementById('flashcard-element').classList.toggle('flipped',isCardFlipped); }
+function nextCard(){ currentCardIndex=(currentCardIndex+1)%flashcardsData.length; renderFlashcard(); }
+function prevCard(){ currentCardIndex=(currentCardIndex-1+flashcardsData.length)%flashcardsData.length; renderFlashcard(); }
+function shuffleCards(){ currentCardIndex=Math.floor(Math.random()*flashcardsData.length); renderFlashcard(); }
+
+/* Matching */
+const termIdle="match-term-btn w-full text-left p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-pink-500 font-bold text-xs md:text-sm transition flex justify-between items-center shadow-sm";
+const defIdle="match-def-btn w-full text-left p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-indigo-500 text-xs md:text-sm transition shadow-sm leading-snug";
+function initMatchingGame(){
+  matchedCount=0; selectedTermObj=null; selectedDefObj=null;
+  document.getElementById('matching-score-badge').innerText=`Matched: 0 / ${flashcardsData.length}`;
+  document.getElementById('matching-complete-banner').classList.add('hidden');
+  shuffledTermsList=shuffle(flashcardsData); shuffledDefsList=shuffle(flashcardsData);
+  renderMatchingUI();
+}
+function resetMatchingGame(){ initMatchingGame(); }
+function renderMatchingUI(){
+  const tc=document.getElementById('match-terms-column'), dc=document.getElementById('match-defs-column');
+  tc.innerHTML=""; dc.innerHTML="";
+  shuffledTermsList.forEach(it=>{
+    const b=document.createElement('button'); b.id=`match-term-${it.id}`; b.className=termIdle;
+    b.innerHTML=`<span>📌 ${it.term}</span><span class="text-[10px] text-slate-400 uppercase font-mono">Term</span>`;
+    b.onclick=()=>selectMatchingTerm(it,b); tc.appendChild(b);
+  });
+  shuffledDefsList.forEach(it=>{
+    const b=document.createElement('button'); b.id=`match-def-${it.id}`; b.className=defIdle; b.innerText=it.definition;
+    b.onclick=()=>selectMatchingDef(it,b); dc.appendChild(b);
+  });
+}
+function selectMatchingTerm(it,btn){
+  if(btn.disabled) return;
+  document.querySelectorAll('.match-term-btn').forEach(b=>{ if(!b.disabled) b.className=termIdle; });
+  btn.className="match-term-btn w-full text-left p-3 rounded-xl border-2 border-pink-500 bg-pink-100 text-pink-900 font-extrabold text-xs md:text-sm flex justify-between items-center shadow-md ring-2 ring-pink-300";
+  selectedTermObj=it; checkPairMatch();
+}
+function selectMatchingDef(it,btn){
+  if(btn.disabled) return;
+  document.querySelectorAll('.match-def-btn').forEach(b=>{ if(!b.disabled) b.className=defIdle; });
+  btn.className="match-def-btn w-full text-left p-3 rounded-xl border-2 border-indigo-500 bg-indigo-50 text-indigo-900 font-semibold text-xs md:text-sm shadow-md ring-2 ring-indigo-300";
+  selectedDefObj=it; checkPairMatch();
+}
+function checkPairMatch(){
+  if(!selectedTermObj||!selectedDefObj) return;
+  const tb=document.getElementById(`match-term-${selectedTermObj.id}`), db=document.getElementById(`match-def-${selectedDefObj.id}`);
+  if(selectedTermObj.id===selectedDefObj.id){
+    playAudioFeedback('success');
+    tb.className="w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-extrabold text-xs md:text-sm opacity-90 cursor-default flex justify-between items-center";
+    db.className="w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold text-xs md:text-sm opacity-90 cursor-default";
+    tb.innerHTML=`<span>✅ ${selectedTermObj.term}</span><span class="text-[10px] bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded">Matched</span>`;
+    tb.disabled=true; db.disabled=true; matchedCount++;
+    document.getElementById('matching-score-badge').innerText=`Matched: ${matchedCount} / ${flashcardsData.length}`;
+    selectedTermObj=null; selectedDefObj=null;
+    if(matchedCount===flashcardsData.length) document.getElementById('matching-complete-banner').classList.remove('hidden');
+  } else {
+    playAudioFeedback('error');
+    tb.classList.add('animate-shake','border-red-500','bg-red-50'); db.classList.add('animate-shake','border-red-500','bg-red-50');
+    setTimeout(()=>{ if(!tb.disabled) tb.className=termIdle; if(!db.disabled) db.className=defIdle; },600);
+    selectedTermObj=null; selectedDefObj=null;
+  }
+}
+
+/* ===================== TAB 3: TRUE / FALSE ===================== */
+function renderTrueFalse(){
+  const c=document.getElementById('tf-statements-container'); c.innerHTML="";
+  let ok=0; Object.values(tfUserAnswers).forEach(a=>{ if(a.isCorrect) ok++; });
+  document.getElementById('tf-score').innerText=`${ok} / ${trueFalseData.length}`;
+  trueFalseData.forEach((it,i)=>{
+    const a=tfUserAnswers[it.id], done=!!a;
+    const card=document.createElement('div');
+    card.className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5 shadow-sm";
+    const fb = done ? `<div class="mt-3 pt-3 border-t border-slate-200 card-slide"><span class="text-xs font-black px-2.5 py-1 rounded-md uppercase ${a.isCorrect?'bg-emerald-600':'bg-red-600'} text-white">${a.isCorrect?'Correct! ✅':'Incorrect ❌'}</span><p class="text-xs text-slate-700 mt-2 font-medium">${it.explanation}</p></div>` : "";
+    const cls=(val)=> done && a.chosen===val ? (a.isCorrect?'bg-emerald-600 text-white':'bg-red-600 text-white') : 'bg-white hover:bg-slate-200 border border-slate-300';
+    card.innerHTML=`<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-start gap-3"><span class="bg-slate-200 font-black text-xs px-2.5 py-1 rounded-md flex-shrink-0 mt-0.5">${i+1}</span>
+      <p class="text-sm font-bold leading-snug">"${it.statement}"</p></div>
+      <div class="flex gap-2 flex-shrink-0 self-end sm:self-auto">
+        <button onclick="answerTF(${it.id},true)" ${done?'disabled':''} class="px-4 py-1.5 rounded-xl text-xs font-black ${cls(true)}">TRUE</button>
+        <button onclick="answerTF(${it.id},false)" ${done?'disabled':''} class="px-4 py-1.5 rounded-xl text-xs font-black ${cls(false)}">FALSE</button>
+      </div></div>${fb}`;
+    c.appendChild(card);
+  });
+}
+function answerTF(id,choice){
+  const it=trueFalseData.find(x=>x.id===id); if(!it) return;
+  const ok=(choice===it.isTrue); playAudioFeedback(ok?'success':'error');
+  tfUserAnswers[id]={chosen:choice,isCorrect:ok}; renderTrueFalse();
+}
+
+/* ===================== METER UI ===================== */
+function renderHeaderMeters(){
+  const c=document.getElementById('header-meters'); c.innerHTML="";
+  meterDefs.forEach(m=>{
+    const val=meters[m.id];
+    const d=document.createElement('div');
+    d.innerHTML=`<div class="flex justify-between text-[10px] font-bold text-indigo-100"><span>${m.icon} ${m.label}</span><span class="font-mono">${val}/10</span></div>
+    <div class="h-2 bg-indigo-950 rounded-full overflow-hidden"><div class="meter-fill h-full ${m.bar}" style="width:${val*10}%"></div></div>`;
+    c.appendChild(d);
+  });
+}
+function fxChips(fx){
+  const icons=["🤝","🎨","💰","🌱"];
+  return fx.map((n,i)=>{
+    if(n===0) return `<span class="text-xs font-bold px-2 py-1 rounded-full bg-slate-100 text-slate-500">${icons[i]} 0</span>`;
+    const pos=n>0;
+    return `<span class="text-xs font-extrabold px-2 py-1 rounded-full ${pos?'bg-emerald-100 text-emerald-800':'bg-red-100 text-red-800'}">${icons[i]} ${pos?'+':''}${n}</span>`;
+  }).join("");
+}
+
+/* ===================== GAME ===================== */
+function initGame(){
+  buildGlossaryUI(); setupDiscussionNotes();
+  const sp=localStorage.getItem('promoPlayers'); if(sp) playerCount=parseInt(sp,10)||3;
+  renderPlayerSetup(); renderHeaderMeters();
+  const si=localStorage.getItem('promoIdx'), sm=localStorage.getItem('promoMeters');
+  if(si!==null && sm){
+    try{ meters=JSON.parse(sm); }catch(e){}
+    currentIdx=parseInt(si,10); renderHeaderMeters();
+    if(currentIdx>=dilemmas.length) finishSimulation(); else { showScreen('main'); loadTask(); }
+  }
+  switchTab('discussion');
+}
+function saveGame(){ localStorage.setItem('promoIdx',currentIdx); localStorage.setItem('promoMeters',JSON.stringify(meters)); }
+function clearSaveAndRestart(){ localStorage.removeItem('promoIdx'); localStorage.removeItem('promoMeters'); location.reload(); }
+function confirmReset(){ document.getElementById('reset-modal').classList.remove('hidden'); }
+function closeResetModal(){ document.getElementById('reset-modal').classList.add('hidden'); }
+function beginGame(){ meters={client:5,quality:5,profit:5,eco:5}; currentIdx=0; renderHeaderMeters(); saveGame(); showScreen('main'); loadTask(); }
+function showScreen(id){
+  ['intro','main','end'].forEach(s=>document.getElementById('screen-'+s).classList.add('hidden'));
+  const t=document.getElementById('screen-'+id); t.classList.remove('hidden','card-slide'); void t.offsetWidth; t.classList.add('card-slide');
+}
+
+function speakerFor(idx){
+  const groups=roleSplits[playerCount];
+  const g=groups[idx % groups.length];
+  return g.map(k=>roles.find(r=>r.key===k));
+}
+function renderRoleCards(){
+  const d=dilemmas[currentIdx];
+  const first=speakerFor(currentIdx);
+  const firstKeys=first.map(r=>r.key);
+  document.getElementById('speaks-first').innerText="Speaks first: "+first.map(r=>r.icon+" "+r.name).join(" + ");
+  const rc=document.getElementById('role-cards'); rc.innerHTML="";
+  roles.forEach(r=>{
+    const isFirst=firstKeys.includes(r.key);
+    const div=document.createElement('div');
+    div.className="rounded-xl p-3 text-xs border-2 "+(isFirst?"bg-pink-50 border-pink-400":"bg-white border-slate-200");
+    div.innerHTML=`<div class="font-extrabold text-slate-900 mb-0.5">${r.icon} ${r.name} ${isFirst?'<span class="ml-1 text-[10px] bg-pink-500 text-white px-1.5 py-0.5 rounded-full">FIRST</span>':''}</div><p class="text-slate-700 italic">"${d.views[r.key]}"</p>`;
+    rc.appendChild(div);
+  });
+}
+
+function loadTask(){
+  const d=dilemmas[currentIdx]; if(!d) return;
+  hasAnswered=false; stopTimer(true);
+  document.getElementById('timeline-badge').innerText=`DILEMMA ${currentIdx+1} / ${dilemmas.length}`;
+  document.getElementById('phase-badge').innerText=d.phase;
+  document.getElementById('question-title').innerText=d.title;
+  document.getElementById('question-text').innerHTML=d.text;
+  const em=document.getElementById('emergency-indicator'), sc=document.getElementById('scenario-card');
+  if(d.emergency){ em.classList.remove('hidden'); sc.classList.add('emergency-card'); playAudioFeedback('emergency'); }
+  else { em.classList.add('hidden'); sc.classList.remove('emergency-card'); }
+  renderRoleCards();
+  const grid=document.getElementById('options-grid'); grid.innerHTML="";
+  document.getElementById('result-feedback').classList.add('hidden');
+  document.getElementById('nav-action-bar').classList.add('hidden');
+  shuffle(d.choices).forEach(ch=>{
+    const b=document.createElement('button');
+    b.className="w-full text-left bg-white hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-900 p-4 rounded-xl font-medium text-sm md:text-base transition shadow-sm flex items-start gap-3 active:scale-[0.99]";
+    b.innerHTML=`<span class="bg-indigo-100 text-indigo-800 font-extrabold text-xs px-2.5 py-1 rounded-md mt-0.5 flex-shrink-0">Option</span><span class="flex-grow">${ch.t}</span>`;
+    b.onclick=()=>selectOption(ch,b);
+    grid.appendChild(b);
+  });
+  document.getElementById('timer-btn').innerText="⏱️ Start discussion timer";
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectOption(ch,btn){
+  if(hasAnswered) return;
+  hasAnswered=true; stopTimer(false);
+  const d=dilemmas[currentIdx];
+  document.querySelectorAll('#options-grid button').forEach(b=>{ b.disabled=true; b.classList.add('opacity-60'); });
+  btn.classList.remove('opacity-60'); btn.classList.add('border-indigo-900','bg-indigo-50','ring-2','ring-indigo-300');
+  const keys=["client","quality","profit","eco"];
+  ch.fx.forEach((n,i)=>{ meters[keys[i]]=clamp(meters[keys[i]]+n); });
+  renderHeaderMeters(); saveGame();
+  const net=ch.fx.reduce((a,b)=>a+b,0);
+  playAudioFeedback(net>=0?'success':'error');
+
+  document.getElementById('feedback-msg').innerText=ch.fb;
+  document.getElementById('fx-chips').innerHTML=fxChips(ch.fx);
+  document.getElementById('discussion-q').innerText=d.disc;
+  const oo=document.getElementById('other-options'); oo.innerHTML="";
+  d.choices.filter(c=>c!==ch).forEach(c=>{
+    const div=document.createElement('div');
+    div.className="bg-white border border-slate-200 rounded-lg p-2";
+    div.innerHTML=`<div class="font-medium text-slate-800 mb-1">${c.t}</div><div class="flex flex-wrap gap-1.5">${fxChips(c.fx)}</div>`;
+    oo.appendChild(div);
+  });
+  const fb=document.getElementById('result-feedback');
+  fb.className="bg-white rounded-2xl p-6 shadow-lg border-l-8 "+(net>0?"border-emerald-500":net<0?"border-red-400":"border-indigo-400")+" mb-6 card-slide";
+  fb.classList.remove('hidden');
+  const nav=document.getElementById('nav-action-bar'), nb=document.getElementById('next-step-btn');
+  nav.classList.remove('hidden');
+  nb.innerText = currentIdx===dilemmas.length-1 ? "See Team Results 🏆" : "Next Dilemma ➔";
+  nb.onclick=()=>{ currentIdx++; saveGame(); if(currentIdx>=dilemmas.length) finishSimulation(); else loadTask(); };
+}
+
+/* Timer */
+function startTimer(){
+  stopTimer(true);
+  let t=dilemmas[currentIdx].seconds||120;
+  const btn=document.getElementById('timer-btn');
+  const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  btn.innerText="⏱️ "+fmt(t);
+  timerInterval=setInterval(()=>{
+    t--; btn.innerText="⏱️ "+fmt(Math.max(t,0));
+    if(t<=0){ stopTimer(true); btn.innerText="⏰ Time is up! Decide now."; playAudioFeedback('beep'); }
+  },1000);
+}
+function stopTimer(reset){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+
+/* End screen */
+function finishSimulation(){
+  showScreen('end');
+  const fm=document.getElementById('final-meters'); fm.innerHTML="";
+  meterDefs.forEach(m=>{
+    const val=meters[m.id];
+    fm.innerHTML+=`<div><div class="flex justify-between text-xs font-bold mb-1"><span>${m.icon} ${m.label}</span><span class="font-mono">${val} / 10</span></div>
+      <div class="h-3 bg-slate-200 rounded-full overflow-hidden"><div class="h-full ${m.bar}" style="width:${val*10}%"></div></div></div>`;
+  });
+  const vals=meterDefs.map(m=>({id:m.id,label:m.label,icon:m.icon,val:meters[m.id]}));
+  const sorted=[...vals].sort((a,b)=>b.val-a.val);
+  const top=sorted[0], low=sorted[sorted.length-1];
+  const prof = (top.val-low.val<=3) ? profileTitles.balanced : profileTitles[top.id];
+  const box=document.getElementById('evaluation-box');
+  box.innerHTML=`<div class="text-xs uppercase font-extrabold tracking-wider text-indigo-700 mb-1">Your team style</div>
+    <h3 class="text-xl font-black mb-2">${prof.title}</h3>
+    <p class="text-sm leading-relaxed mb-3">${prof.desc}</p>
+    <div class="grid grid-cols-2 gap-2 text-xs">
+      <div class="bg-emerald-100 text-emerald-900 rounded-lg p-2"><strong>💪 Strongest:</strong><br>${top.icon} ${top.label} (${top.val}/10)</div>
+      <div class="bg-amber-100 text-amber-900 rounded-lg p-2"><strong>🌱 Room to grow:</strong><br>${low.icon} ${low.label} (${low.val}/10)</div>
+    </div>`;
+  localStorage.removeItem('promoIdx'); localStorage.removeItem('promoMeters');
+}
+
+/* ===================== GLOSSARY ===================== */
+function buildGlossaryUI(){
+  const list=document.getElementById('glossary-list'); list.innerHTML="";
+  flashcardsData.forEach(it=>{
+    const div=document.createElement('div');
+    div.className="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-pink-500 transition";
+    div.id='vocab-'+it.key.replace(/\s+/g,'-');
+    div.innerHTML=`<div class="font-bold text-sm flex items-center justify-between"><span>📌 ${it.term}</span><span class="text-[10px] bg-pink-100 text-pink-900 font-extrabold px-2 py-0.5 rounded uppercase">${it.pos}</span></div>
+      <p class="text-xs text-slate-700 font-semibold mt-1">${it.definition}</p>
+      <p class="text-[11px] text-slate-500 italic mt-0.5">${it.context}</p>`;
+    list.appendChild(div);
+  });
+}
+function toggleGlossaryModal(){ document.getElementById('glossary-modal').classList.toggle('hidden'); }
+function openGlossaryTerm(key){
+  document.getElementById('glossary-modal').classList.remove('hidden');
+  const el=document.getElementById('vocab-'+key.toLowerCase().replace(/\s+/g,'-'));
+  if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('ring-2','ring-pink-500'); setTimeout(()=>el.classList.remove('ring-2','ring-pink-500'),2000); }
+}
+
+window.onload=initGame;
+</script>
+</body>
+</html>
